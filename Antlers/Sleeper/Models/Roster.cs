@@ -1,27 +1,24 @@
-﻿namespace Antlers.Sleeper.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Antlers.Sleeper.Models
 {
     public class Roster
     {
-        public int roster_id { get; set; }
-        public int[]? players { get; set; }
-        public int[]? starters { get; set; }
-        public int[]? reserve { get; set; }
-        public Settings settings { get; set; } = new Settings();
-        public string? owner_id { get; set; }
-        public string? league_id { get; set; }
-
-        public class Settings
-        {
-            public int wins { get; set; }
-            public int waiver_position { get; set; }
-            public int waiver_budget_used { get; set; }
-            public int total_moves { get; set; }
-            public int ties { get; set; }
-            public int losses { get; set; }
-            public int fpts { get; set; }
-            public int fpts_decimal { get; set; }
-            public int fpts_against { get; set; }
-            public int fpts_against_decimal { get; set; }
-        }
+        [JsonPropertyName("roster_id")]
+        public int RosterId { get; set; }
+        [JsonPropertyName("players")]
+        public int[]? Players { get; set; }
+        [JsonPropertyName("starters")]
+        public int[]? Starters { get; set; }
+        [JsonPropertyName("reserve")]
+        public int[]? Reserve { get; set; }
+        [JsonPropertyName("taxi")]
+        public int[]? Taxi { get; set; }
+        [JsonPropertyName("settings")]
+        public RosterSettings? Settings { get; set; }
+        [JsonPropertyName("owner_id")]
+        public string? OwnerId { get; set; }
+        [JsonPropertyName("league_id")]
+        public string? LeagueId { get; set; }
     }
 }

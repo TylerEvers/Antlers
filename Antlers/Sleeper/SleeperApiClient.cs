@@ -31,6 +31,19 @@ namespace Antlers.Sleeper
         }
 
         /// <summary>
+        /// Function to return data for a specific player based on sport and player id
+        /// </summary>
+        /// <param name="sport">Currently only supports "nfl"</param>
+        /// <param name="playerId">The ID of the player to retrieve</param>
+        /// <returns>Returns a player object for the specified player</returns>
+        public Player GetPlayer(string sport, int playerId)
+        {
+            var request = new RestRequest($"/players/{sport}/{playerId}", Method.Get);
+            var response = _client.Execute(request);
+            return JsonConvert.DeserializeObject<Player>(response.Content) ?? new Player();
+        }
+
+        /// <summary>
         /// Function to return all players from Sleeper (Limit calls to once per day at most to keep your player IDs updated. The average size of this query is 5MB.)
         /// Link: https://docs.sleeper.com/#players
         /// </summary>
