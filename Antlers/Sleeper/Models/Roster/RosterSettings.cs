@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Antlers.Sleeper.Models
+namespace Antlers.Sleeper.Models.Roster
 {
     public class RosterSettings
     {
