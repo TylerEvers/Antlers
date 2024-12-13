@@ -24,10 +24,10 @@ namespace Antlers.Sleeper
         /// </summary>
         /// <param name="leagueId">The ID of the league to retrieve</param>
         /// <returns>Returns a league object for the specified league</returns>
-        public League GetLeague(int leagueId)
+        public async Task<League> GetLeague(int leagueId)
         {
             var request = new RestRequest($"/league/{leagueId}", Method.Get);
-            var response = _client.Execute(request);
+            var response = await _client.ExecuteAsync(request);
             return JsonConvert.DeserializeObject<League>(response.Content) ?? new League();
         }
 
@@ -37,10 +37,10 @@ namespace Antlers.Sleeper
         /// <param name="sport">Currently only supports "nfl"</param>
         /// <param name="playerId">The ID of the player to retrieve</param>
         /// <returns>Returns a player object for the specified player</returns>
-        public Player GetPlayer(string sport, int playerId)
+        public async Task<Player> GetPlayer(string sport, int playerId)
         {
             var request = new RestRequest($"/players/{sport}/{playerId}", Method.Get);
-            var response = _client.Execute(request);
+            var response = await _client.ExecuteAsync(request);
             return JsonConvert.DeserializeObject<Player>(response.Content) ?? new Player();
         }
 
@@ -50,10 +50,10 @@ namespace Antlers.Sleeper
         /// </summary>
         /// <param name="sport">Currently only supports "nfl".</param>
         /// <returns>Returns a list of the Player object containing all players of the provided sport</returns>
-        public IEnumerable<Player> GetPlayers(string sport)
+        public async Task<IEnumerable<Player>> GetPlayers(string sport)
         {
             var request = new RestRequest($"/players/{sport}", Method.Get);
-            var response = _client.Execute(request);
+            var response = await _client.ExecuteAsync(request);
             return JsonConvert.DeserializeObject<IEnumerable<Player>>(response.Content) ?? new List<Player>();
         }
 
@@ -67,10 +67,10 @@ namespace Antlers.Sleeper
         /// <param name="lookbackHours">Number of hours to look back (defaults to 24)</param>
         /// <param name="limit">Number of players you want returned (defaults to 25)</param>
         /// <returns>Returns a list of the Player object containing Sleeper Trending data</returns>
-        public IEnumerable<Player> GetTrendingPlayers(string sport, string type, int lookbackHours = 24, int limit = 25)
+        public async Task<IEnumerable<Player>> GetTrendingPlayers(string sport, string type, int lookbackHours = 24, int limit = 25)
         {
             var request = new RestRequest($"/players/{sport}/trending/{type}?lookback_hours={lookbackHours}&limit={limit}", Method.Get);
-            var response = _client.Execute(request);
+            var response = await _client.ExecuteAsync(request);
             return JsonConvert.DeserializeObject<IEnumerable<Player>>(response.Content) ?? new List<Player>();
         }
 
@@ -79,10 +79,10 @@ namespace Antlers.Sleeper
         /// </summary>
         /// <param name="leagueId">ID of the league to retrieve rosters from</param>
         /// <returns>Returns a list of the Roster object</returns>
-        public IEnumerable<Roster> GetRosters(string leagueId)
+        public async Task<IEnumerable<Roster>> GetRosters(string leagueId)
         {
             var request = new RestRequest($"/league/{leagueId}/rosters", Method.Get);
-            var response = _client.Execute(request);
+            var response = await _client.ExecuteAsync(request);
             return JsonConvert.DeserializeObject<IEnumerable<Roster>>(response.Content) ?? new List<Roster>();
         }
     }
