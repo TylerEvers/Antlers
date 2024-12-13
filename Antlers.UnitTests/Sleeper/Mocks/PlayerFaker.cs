@@ -1,7 +1,7 @@
 using Antlers.Sleeper.Models;
 using Bogus;
 
-namespace Antlers.UnitTests.Mocks;
+namespace Antlers.UnitTests.Sleeper.Mocks;
 
 public class PlayerFaker
 {

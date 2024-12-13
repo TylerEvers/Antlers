@@ -1,74 +1,74 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Antlers.Sleeper.Models
 {
     public class Player
     {
-        [JsonPropertyName("player_id")]
+        [JsonProperty("player_id")]
         public string? PlayerId { get; set; }
-        [JsonPropertyName("first_name")]
+        [JsonProperty("first_name")]
         public string? FirstName { get; set; }
-        [JsonPropertyName("last_name")]
+        [JsonProperty("last_name")]
         public string? LastName { get; set; }
-        [JsonPropertyName("number")]
+        [JsonProperty("number")]
         public int Number { get; set; }
-        [JsonPropertyName("position")]
+        [JsonProperty("position")]
         public string? Position { get; set; }
-        [JsonPropertyName("fantasy_positions")]
+        [JsonProperty("fantasy_positions")]
         public string[]? FantasyPositions { get; set; }
-        [JsonPropertyName("status")]
+        [JsonProperty("status")]
         public string? Status { get; set; }
-        [JsonPropertyName("age")]
+        [JsonProperty("age")]
         public int Age { get; set; }
-        [JsonPropertyName("height")]
+        [JsonProperty("height")]
         public string? Height { get; set; }
-        [JsonPropertyName("weight")]
+        [JsonProperty("weight")]
         public string? Weight { get; set; }
-        [JsonPropertyName("birth_date")]
+        [JsonProperty("birth_date")]
         public string? BirthDate { get; set; }
-        [JsonPropertyName("sport")]
+        [JsonProperty("sport")]
         public string? Sport { get; set; }
-        [JsonPropertyName("team")]
+        [JsonProperty("team")]
         public string? Team { get; set; }
-        [JsonPropertyName("college")]
+        [JsonProperty("college")]
         public string? College { get; set; }
-        [JsonPropertyName("high_school")]
+        [JsonProperty("high_school")]
         public string? HighSchool { get; set; }
-        [JsonPropertyName("depth_chart_position")]
+        [JsonProperty("depth_chart_position")]
         public string? DepthChartPosition { get; set; }
-        [JsonPropertyName("depth_chart_order")]
+        [JsonProperty("depth_chart_order")]
         public int DepthChartOrder { get; set; }
-        [JsonPropertyName("years_exp")]
+        [JsonProperty("years_exp")]
         public int YearsExperience { get; set; }
-        [JsonPropertyName("injury_start_date")]
+        [JsonProperty("injury_start_date")]
         public DateTime? InjuryStartDate { get; set; }
-        [JsonPropertyName("practice_participation")]
+        [JsonProperty("practice_participation")]
         public bool? PracticeParticipation { get; set; }
-        [JsonPropertyName("injury_status")]
+        [JsonProperty("injury_status")]
         public bool? InjuryStatus { get; set; }
-        [JsonPropertyName("search_rank")]
+        [JsonProperty("search_rank")]
         public int SearchRank { get; set; }
-        [JsonPropertyName("search_full_name")]
+        [JsonProperty("search_full_name")]
         public string? SearchFullName { get; set; }
-        [JsonPropertyName("search_first_name")]
+        [JsonProperty("search_first_name")]
         public string? SearchFirstName { get; set; }
-        [JsonPropertyName("search_last_name")]
+        [JsonProperty("search_last_name")]
         public string? SearchLastName { get; set; }
-        [JsonPropertyName("hashtag")]
+        [JsonProperty("hashtag")]
         public string? Hashtag { get; set; }
-        [JsonPropertyName("fantasy_data_id")]
+        [JsonProperty("fantasy_data_id")]
         public int? FantasyDataId { get; set; }
-        [JsonPropertyName("stats_id")]
+        [JsonProperty("stats_id")]
         public string? StatsId { get; set; }
-        [JsonPropertyName("sportradar_id")]
+        [JsonProperty("sportradar_id")]
         public string? SportRadarId { get; set; }
-        [JsonPropertyName("espn_id")]
+        [JsonProperty("espn_id")]
         public string? EspnId { get; set; }
-        [JsonPropertyName("rotowire_id")]
+        [JsonProperty("rotowire_id")]
         public int RotowireId { get; set; }
-        [JsonPropertyName("rotoworld_id")]
+        [JsonProperty("rotoworld_id")]
         public int RotoworldId { get; set; }
-        [JsonPropertyName("yahoo_id")]
+        [JsonProperty("yahoo_id")]
         public int? YahooId { get; set; }
     }
 

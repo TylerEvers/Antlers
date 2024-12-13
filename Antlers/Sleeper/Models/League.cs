@@ -1,34 +1,34 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Antlers.Sleeper.Models
 {
     public class League
     {
-        [JsonPropertyName("league_id")]
+        [JsonProperty("league_id")]
         public string? LeagueId { get; set; }
-        [JsonPropertyName("previous_league_id")]
+        [JsonProperty("previous_league_id")]
         public string? PreviousLeagueId { get; set; }
-        [JsonPropertyName("name")]
+        [JsonProperty("name")]
         public string? Name { get; set; }
-        [JsonPropertyName("status")]
+        [JsonProperty("status")]
         public string? Status { get; set; }
-        [JsonPropertyName("settings")]
+        [JsonProperty("settings")]
         public LeagueSettings? Settings { get; set; }
-        [JsonPropertyName("avatar")]
+        [JsonProperty("avatar")]
         public string? Avatar { get; set; }
-        [JsonPropertyName("season")]
+        [JsonProperty("season")]
         public string? Season { get; set; }
-        [JsonPropertyName("season_type")]
+        [JsonProperty("season_type")]
         public string? SeasonType { get; set; }
-        [JsonPropertyName("sport")]
+        [JsonProperty("sport")]
         public string? Sport { get; set; }
-        [JsonPropertyName("scoring_settings")]
+        [JsonProperty("scoring_settings")]
         public ScoringSettings? ScoringSettings { get; set; }
-        [JsonPropertyName("draft_id")]
+        [JsonProperty("draft_id")]
         public string? DraftId { get; set; }
-        [JsonPropertyName("roster_positions")]
+        [JsonProperty("roster_positions")]
         public string[]? RosterPositions { get; set; }
-        [JsonPropertyName("total_rosters")]
+        [JsonProperty("total_rosters")]
         public int TotalRosters { get; set; }
     }
 }

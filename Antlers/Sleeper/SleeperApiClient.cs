@@ -6,15 +6,16 @@ namespace Antlers.Sleeper
 {
     public class SleeperApiClient
     {
-        private const string _baseUri = "https://api.sleeper.app/v1";
+        private IBaseUriStrategy _baseUriStrategy;
         private RestClient _client;
 
         /// <summary>
         /// Creates a new instance of the SleeperApiClient
         /// </summary>
-        public SleeperApiClient()
+        public SleeperApiClient(IBaseUriStrategy baseUriStrategy)
         {
-            _client = new RestClient(_baseUri);
+            _baseUriStrategy = baseUriStrategy ?? throw new ArgumentNullException(nameof(baseUriStrategy));
+            _client = new RestClient(_baseUriStrategy.GetBaseUri());
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿using Antlers.Sleeper.Models;
 using Bogus;
 
-namespace Antlers.UnitTests.Mocks
+namespace Antlers.UnitTests.Sleeper.Mocks
 {
     public class LeagueFaker
     {
@@ -160,7 +160,7 @@ namespace Antlers.UnitTests.Mocks
                 .RuleFor(l => l.TotalRosters, f => f.Random.Int(10, 30))
                 ;
 
-                return leagueFaker.Generate();
+            return leagueFaker.Generate();
         }
     }
 }

@@ -1,120 +1,120 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Antlers.Sleeper.Models
 {
     public class LeagueSettings
     {
-        [JsonPropertyName("best_ball")]
+        [JsonProperty("best_ball")]
         public int BestBall { get; set; }
-        [JsonPropertyName("last_report")]
+        [JsonProperty("last_report")]
         public int LastReport { get; set; }
-        [JsonPropertyName("waiver_budget")]
+        [JsonProperty("waiver_budget")]
         public int WaiverBudget { get; set; }
-        [JsonPropertyName("disable_adds")]
+        [JsonProperty("disable_adds")]
         public int DisableAdds { get; set; }
-        [JsonPropertyName("capacity_override")]
+        [JsonProperty("capacity_override")]
         public int CapacityOverride { get; set; }
-        [JsonPropertyName("waiver_bid_min")]
+        [JsonProperty("waiver_bid_min")]
         public int WaiverBidMin { get; set; }
-        [JsonPropertyName("taxi_deadline")]
+        [JsonProperty("taxi_deadline")]
         public int TaxiDeadline { get; set; }
-        [JsonPropertyName("draft_rounds")]
+        [JsonProperty("draft_rounds")]
         public int DraftRounds { get; set; }
-        [JsonPropertyName("position_limit_lb")]
+        [JsonProperty("position_limit_lb")]
         public int PositionLimitLb { get; set; }
-        [JsonPropertyName("reserve_allow_na")]
+        [JsonProperty("reserve_allow_na")]
         public int ReserveAllowNa { get; set; }
-        [JsonPropertyName("start_week")]
+        [JsonProperty("start_week")]
         public int StartWeek { get; set; }
-        [JsonPropertyName("playoff_seed_type")]
+        [JsonProperty("playoff_seed_type")]
         public int PlayoffSeedType { get; set; }
-        [JsonPropertyName("playoff_teams")]
+        [JsonProperty("playoff_teams")]
         public int PlayoffTeams { get; set; }
-        [JsonPropertyName("veto_votes_needed")]
+        [JsonProperty("veto_votes_needed")]
         public int VetoVotesNeeded { get; set; }
-        [JsonPropertyName("squads")]
+        [JsonProperty("squads")]
         public int Squads { get; set; }
-        [JsonPropertyName("num_teams")]
+        [JsonProperty("num_teams")]
         public int NumTeams { get; set; }
-        [JsonPropertyName("daily_waivers_hour")]
+        [JsonProperty("daily_waivers_hour")]
         public int DailyWaiversHour { get; set; }
-        [JsonPropertyName("playoff_type")]
+        [JsonProperty("playoff_type")]
         public int PlayoffType { get; set; }
-        [JsonPropertyName("taxi_slots")]
+        [JsonProperty("taxi_slots")]
         public int TaxiSlots { get; set; }
-        [JsonPropertyName("sub_start_time_eligibility")]
+        [JsonProperty("sub_start_time_eligibility")]
         public int SubStartTimeEligibility { get; set; }
-        [JsonPropertyName("last_scored_leg")]
+        [JsonProperty("last_scored_leg")]
         public int LastScoredLeg { get; set; }
-        [JsonPropertyName("daily_waivers_days")]
+        [JsonProperty("daily_waivers_days")]
         public int DailyWaiversDays { get; set; }
-        [JsonPropertyName("sub_lock_if_starter_active")]
+        [JsonProperty("sub_lock_if_starter_active")]
         public int SubLockIfStarterActive { get; set; }
-        [JsonPropertyName("playoff_week_start")]
+        [JsonProperty("playoff_week_start")]
         public int PlayoffWeekStart { get; set; }
-        [JsonPropertyName("position_limit_db")]
+        [JsonProperty("position_limit_db")]
         public int PositionLimitDb { get; set; }
-        [JsonPropertyName("waiver_clear_days")]
+        [JsonProperty("waiver_clear_days")]
         public int WaiverClearDays { get; set; }
-        [JsonPropertyName("reserve_allow_doubtful")]
+        [JsonProperty("reserve_allow_doubtful")]
         public int ReserveAllowDoubtful { get; set; }
-        [JsonPropertyName("commissioner_direct_invite")]
+        [JsonProperty("commissioner_direct_invite")]
         public int CommissionerDirectInvite { get; set; }
-        [JsonPropertyName("veto_auto_poll")]
+        [JsonProperty("veto_auto_poll")]
         public int VetoAutoPoll { get; set; }
-        [JsonPropertyName("reserve_allow_dnr")]
+        [JsonProperty("reserve_allow_dnr")]
         public int ReserveAllowDnr { get; set; }
-        [JsonPropertyName("taxi_allow_vets")]
+        [JsonProperty("taxi_allow_vets")]
         public int TaxiAllowVets { get; set; }
-        [JsonPropertyName("waiver_day_of_week")]
+        [JsonProperty("waiver_day_of_week")]
         public int WaiverDayOfWeek { get; set; }
-        [JsonPropertyName("playoff_round_type")]
+        [JsonProperty("playoff_round_type")]
         public int PlayoffRoundType { get; set; }
-        [JsonPropertyName("reserve_allow_out")]
+        [JsonProperty("reserve_allow_out")]
         public int ReserveAllowOut { get; set; }
-        [JsonPropertyName("reserve_allow_sus")]
+        [JsonProperty("reserve_allow_sus")]
         public int ReserveAllowSus { get; set; }
-        [JsonPropertyName("veto_show_votes")]
+        [JsonProperty("veto_show_votes")]
         public int VetoShowVotes { get; set; }
-        [JsonPropertyName("trade_deadline")]
+        [JsonProperty("trade_deadline")]
         public int TradeDeadline { get; set; }
-        [JsonPropertyName("taxi_years")]
+        [JsonProperty("taxi_years")]
         public int TaxiYears { get; set; }
-        [JsonPropertyName("daily_waivers")]
+        [JsonProperty("daily_waivers")]
         public int DailyWaivers { get; set; }
-        [JsonPropertyName("faab_suggestions")]
+        [JsonProperty("faab_suggestions")]
         public int FaabSuggestions { get; set; }
-        [JsonPropertyName("disable_trades")]
+        [JsonProperty("disable_trades")]
         public int DisableTrades { get; set; }
-        [JsonPropertyName("pick_trading")]
+        [JsonProperty("pick_trading")]
         public int PickTrading { get; set; }
-        [JsonPropertyName("type")]
+        [JsonProperty("type")]
         public int Type { get; set; }
-        [JsonPropertyName("max_keepers")]
+        [JsonProperty("max_keepers")]
         public int MaxKeepers { get; set; }
-        [JsonPropertyName("waiver_type")]
+        [JsonProperty("waiver_type")]
         public int WaiverType { get; set; }
-        [JsonPropertyName("max_subs")]
+        [JsonProperty("max_subs")]
         public int MaxSubs { get; set; }
-        [JsonPropertyName("league_average_match")]
+        [JsonProperty("league_average_match")]
         public int LeagueAverageMatch { get; set; }
-        [JsonPropertyName("position_limit_dl")]
+        [JsonProperty("position_limit_dl")]
         public int PositionLimitDl { get; set; }
-        [JsonPropertyName("trade_review_days")]
+        [JsonProperty("trade_review_days")]
         public int TradeReviewDays { get; set; }
-        [JsonPropertyName("bench_lock")]
+        [JsonProperty("bench_lock")]
         public int BenchLock { get; set; }
-        [JsonPropertyName("offseason_adds")]
+        [JsonProperty("offseason_adds")]
         public int OffseasonAdds { get; set; }
-        [JsonPropertyName("leg")]
+        [JsonProperty("leg")]
         public int Leg { get; set; }
-        [JsonPropertyName("daily_waivers_base")]
+        [JsonProperty("daily_waivers_base")]
         public int DailyWaiversBase { get; set; }
-        [JsonPropertyName("reserve_slots")]
+        [JsonProperty("reserve_slots")]
         public int ReserveSlots { get; set; }
-        [JsonPropertyName("reserve_allow_cov")]
+        [JsonProperty("reserve_allow_cov")]
         public int ReserveAllowCov { get; set; }
-        [JsonPropertyName("daily_waivers_last_ran")]
+        [JsonProperty("daily_waivers_last_ran")]
         public int DailyWaiversLastRan { get; set; }
     }
 }
