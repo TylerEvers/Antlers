@@ -26,7 +26,7 @@ namespace Antlers.Sleeper
         /// </summary>
         /// <param name="leagueId">The ID of the league to retrieve</param>
         /// <returns>Returns a league object for the specified league</returns>
-        public async Task<League> GetLeague(int leagueId)
+        public async Task<League> GetLeague(long leagueId)
         {
             var request = new RestRequest($"/league/{leagueId}", Method.Get);
             var response = await _client.ExecuteAsync(request);
