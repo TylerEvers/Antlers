@@ -18,6 +18,8 @@ namespace Antlers.Sleeper.Models.Roster
         public RosterSettings? Settings { get; set; }
         [JsonProperty("owner_id")]
         public string? OwnerId { get; set; }
+        [JsonProperty("co_owners")]
+        public string[]? CoOwners { get; set; }
         [JsonProperty("league_id")]
         public string? LeagueId { get; set; }
     }

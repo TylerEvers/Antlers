@@ -27,8 +27,9 @@ public class RosterFaker
                 FantasyPointsAgainst = f.Random.Number(),
                 FantasyPointsAgainstDecimal = f.Random.Number()
             })
-            .RuleFor(r => r.OwnerId, f => f.Random.Guid().ToString())
-            .RuleFor(r => r.LeagueId, f => f.Random.Guid().ToString());
+            .RuleFor(r => r.OwnerId, f => f.Random.Number().ToString())
+            .RuleFor(r => r.CoOwners, f => f.Random.ArrayElements(new string[f.Random.Int(1, 5)].ToArray()))
+            .RuleFor(r => r.LeagueId, f => f.Random.Number().ToString());
 
         return rosterFaker.Generate();
     }

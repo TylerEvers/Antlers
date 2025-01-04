@@ -81,7 +81,7 @@ namespace Antlers.Sleeper
         /// </summary>
         /// <param name="leagueId">ID of the league to retrieve rosters from</param>
         /// <returns>Returns a list of the Roster object</returns>
-        public async Task<IEnumerable<Roster>> GetRosters(string leagueId)
+        public async Task<IEnumerable<Roster>> GetRosters(long leagueId)
         {
             var request = new RestRequest($"/league/{leagueId}/rosters", Method.Get);
             var response = await _client.ExecuteAsync(request);
