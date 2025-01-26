@@ -1,6 +1,5 @@
 ﻿using RestSharp;
 using Newtonsoft.Json;
-using Antlers.Sleeper.Models.League;
 using Antlers.Sleeper.Models;
 
 namespace Antlers.Sleeper
