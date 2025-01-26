@@ -1,4 +1,4 @@
-using Antlers.Sleeper.Models.Player;
+using Antlers.Sleeper.Models;
 using Bogus;
 
 namespace Antlers.UnitTests.Sleeper.Mocks;

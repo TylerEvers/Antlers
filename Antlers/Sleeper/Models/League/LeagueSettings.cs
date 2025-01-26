@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Antlers.Sleeper.Models.League
+namespace Antlers.Sleeper.Models
 {
     public class LeagueSettings
     {
