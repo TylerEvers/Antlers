@@ -1,8 +1,7 @@
 ﻿using RestSharp;
 using Newtonsoft.Json;
 using Antlers.Sleeper.Models.League;
-using Antlers.Sleeper.Models.Player;
-using Antlers.Sleeper.Models.Roster;
+using Antlers.Sleeper.Models;
 
 namespace Antlers.Sleeper
 {
@@ -62,7 +61,7 @@ namespace Antlers.Sleeper
 
         /// <summary>
         /// Function to return Trending Player data from Sleeper (requires attribution, they also provide an embed iframe for use on websites/blogs)
-        /// Link: https://docs.sleeper.com/#fetch-all-players
+        /// Link: https://docs.sleeper.com/#trending-players
         /// </summary>
         /// <param name="sport">Currently only supports "nfl".</param>
         /// <param name="type">Either "add" or "drop"</param>
@@ -86,6 +85,20 @@ namespace Antlers.Sleeper
             var request = new RestRequest($"/league/{leagueId}/rosters", Method.Get);
             var response = await _client.ExecuteAsync(request);
             return JsonConvert.DeserializeObject<IEnumerable<Roster>>(response.Content) ?? new List<Roster>();
+        }
+
+        /// <summary>
+        /// Function to return schedule for a specific sport, segment  and year.
+        /// </summary>
+        /// <param name="sport">Currently only supports "nfl".</param>
+        /// <param name="segment">Season segment, (pre, regular, post)</param>
+        /// <param name="year">Year to return</param>
+        /// <returns>Returns a list of the Schedule object</returns>
+        public async Task<IEnumerable<Schedule>> GetSchedule(string sport, string segment, int year)
+        {
+            var request = new RestRequest($"/schedule/{sport}/{segment}/{year}", Method.Get);
+            var response = await _client.ExecuteAsync(request);
+            return JsonConvert.DeserializeObject<IEnumerable<Schedule>>(response.Content) ?? new List<Schedule>();
         }
     }
 }

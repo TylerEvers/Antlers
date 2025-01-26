@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Antlers.Sleeper.Models.Player
+namespace Antlers.Sleeper.Models
 {
     public class Player
     {
@@ -30,6 +30,8 @@ namespace Antlers.Sleeper.Models.Player
         public string? Sport { get; set; }
         [JsonProperty("team")]
         public string? Team { get; set; }
+        [JsonProperty("team_abbr")]
+        public string? TeamAbbreviation { get; set; }
         [JsonProperty("college")]
         public string? College { get; set; }
         [JsonProperty("high_school")]
@@ -40,12 +42,16 @@ namespace Antlers.Sleeper.Models.Player
         public int DepthChartOrder { get; set; }
         [JsonProperty("years_exp")]
         public int YearsExperience { get; set; }
-        [JsonProperty("injury_start_date")]
-        public DateTime? InjuryStartDate { get; set; }
         [JsonProperty("practice_participation")]
         public bool? PracticeParticipation { get; set; }
+        [JsonProperty("injury_start_date")]
+        public DateTime? InjuryStartDate { get; set; }
         [JsonProperty("injury_status")]
         public bool? InjuryStatus { get; set; }
+        [JsonProperty("injury_body_part")]
+        public string? InjuryBodyPart { get; set; }
+        [JsonProperty("injury_notes")]
+        public string? InjuryNotes { get; set; }
         [JsonProperty("search_rank")]
         public int SearchRank { get; set; }
         [JsonProperty("search_full_name")]
@@ -70,10 +76,13 @@ namespace Antlers.Sleeper.Models.Player
         public int RotoworldId { get; set; }
         [JsonProperty("yahoo_id")]
         public int? YahooId { get; set; }
-    }
-
-    public class Response
-    {
-        public Dictionary<int, Player> Players { get; set; } = new Dictionary<int, Player>();
+        [JsonProperty("oddsjam_id")]
+        public string? OddsJamId { get; set; }
+        [JsonProperty("pandascore_id")]
+        public string? PandaScoreId { get; set; }
+        [JsonProperty("gsis_id")]
+        public string? GsisId { get; set; }
+        [JsonProperty("metadata")]
+        public PlayerMetadata? Metadata { get; set; }
     }
 }
