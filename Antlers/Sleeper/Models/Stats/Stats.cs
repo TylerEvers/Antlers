@@ -5,6 +5,40 @@ namespace Antlers.Sleeper.Models
     public class Stats
     {
         //TODO: Rename properties, keep Sleeper shorthand, add casing, and remove underscores OR use generaric name ie RushTd vs RushingTouchdowns?
+        //TODO: Stats/Projs share a ton of properties, make these inheritable, one class, two unique classes?
+        [JsonProperty("adp_2qb")]
+        public float adp_2qb { get; set; }
+
+        [JsonProperty("adp_dynasty")]
+        public float adp_dynasty { get; set; }
+
+        [JsonProperty("adp_dynasty_2qb")]
+        public float adp_dynasty_2qb { get; set; }
+
+        [JsonProperty("adp_dynasty_half_ppr")]
+        public float adp_dynasty_half_ppr { get; set; }
+
+        [JsonProperty("adp_dynasty_ppr")]
+        public float adp_dynasty_ppr { get; set; }
+
+        [JsonProperty("adp_dynasty_std")]
+        public float adp_dynasty_std { get; set; }
+
+        [JsonProperty("adp_half_ppr")]
+        public float adp_half_ppr { get; set; }
+
+        [JsonProperty("adp_idp")]
+        public float adp_idp { get; set; }
+
+        [JsonProperty("adp_ppr")]
+        public float adp_ppr { get; set; }
+
+        [JsonProperty("adp_rookie")]
+        public float adp_rookie { get; set; }
+
+        [JsonProperty("adp_std")]
+        public float adp_std { get; set; }
+
         [JsonProperty("rush_lng")]
         public float rush_lng { get; set; }
 

@@ -27,7 +27,7 @@ namespace Antlers.IntegrationTests.Sleeper
             var result = strategy.GetBaseUri();
 
             // Assert
-            Assert.Equal("https://api.sleeper.com/", result);
+            Assert.Equal("https://api.sleeper.com", result);
         }
     }
 }

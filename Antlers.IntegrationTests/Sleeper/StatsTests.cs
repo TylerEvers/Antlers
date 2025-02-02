@@ -2,23 +2,23 @@
 
 namespace Antlers.IntegrationTests.Sleeper
 {
-    public class PlayerTests
+    public class StatsTests
     {
         private const int _validPlayerId = 4881; //Lamar Jackson TODO: Move to appsettings?
         private const int _invalidPlayerId = 0;
 
         [Fact]
-        public async void GetPlayer_WithValidPlayerId_ReturnsPlayer()
+        public async void GetPlayerStats_WithValidPlayerId_ReturnsPlayer()
         {
             // Arrange
             var apiClient = new SleeperApiClient(new SleeperWebBaseUriStrategy());
 
             // Act
-            var player = await apiClient.GetPlayer("nfl", _validPlayerId);
+            var stats = await apiClient.GetPlayerStats("nfl", _validPlayerId, 2024, "regular");
 
             // Assert
-            Assert.NotNull(player);
-            Assert.Equal(_validPlayerId.ToString(), player.PlayerId);
+            Assert.NotNull(stats);
+            Assert.Equal(_validPlayerId.ToString(), stats.PlayerId);
         }
 
         [Fact]
@@ -28,10 +28,10 @@ namespace Antlers.IntegrationTests.Sleeper
             var apiClient = new SleeperApiClient(new SleeperWebBaseUriStrategy());
 
             // Act
-            var player = await apiClient.GetPlayer("nfl", _invalidPlayerId);
+            var stats = await apiClient.GetPlayerStats("nfl", _invalidPlayerId, 2024, "regular");
 
             // Assert
-            Assert.Null(player.PlayerId);
+            Assert.Null(stats.PlayerId);
         }
     }
 }

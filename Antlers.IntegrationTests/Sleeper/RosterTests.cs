@@ -21,7 +21,7 @@ namespace Antlers.IntegrationTests.Sleeper
         }
 
         [Fact]
-        public async void GetRosters_WithInvalidRosterId_ReturnsRoster()
+        public async void GetRosters_WithInvalidRosterId_ReturnsNullRoster()
         {
             // Arrange
             var apiClient = new SleeperApiClient(new SleeperAppBaseUriStrategy());

@@ -16,10 +16,10 @@ namespace Antlers.Sleeper.Models
         public int? Week { get; set; }
         [JsonProperty("sport")]
         public string? Sport { get; set; }
-        [JsonProperty("season_type")]
-        public string? SeasonType { get; set; }
         [JsonProperty("season")]
         public string? Season { get; set; }
+        [JsonProperty("season_type")]
+        public string? SeasonType { get; set; }
         [JsonProperty("player_id")]
         public string? PlayerId { get; set; }
         [JsonProperty("game_id")]

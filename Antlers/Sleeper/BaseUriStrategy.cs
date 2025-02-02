@@ -11,7 +11,7 @@
     {
         public string GetBaseUri()
         {
-            return "https://api.sleeper.com/";
+            return "https://api.sleeper.com";
         }
     }
 }

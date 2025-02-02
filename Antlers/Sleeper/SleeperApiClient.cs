@@ -99,5 +99,69 @@ namespace Antlers.Sleeper
             var response = await _client.ExecuteAsync(request);
             return JsonConvert.DeserializeObject<IEnumerable<Schedule>>(response.Content) ?? new List<Schedule>();
         }
+
+        /// <summary>
+        /// Function to return stats for a specific player based on sport, player id, season type and year.
+        /// </summary>
+        /// <param name="sport">Currently only supports "nfl"</param>
+        /// <param name="playerId">ID of the player to return</param>
+        /// <param name="seasonSegment">Season segment, (pre, regular, post)</param>
+        /// <param name="year">Year to return</param>
+        /// <param name="grouping">Optional parameter, default returns entire season, week returns by week</param>
+        /// <returns>Returns a list of the Stats object for given player</returns>
+        public async Task<StatsResponse> GetPlayerStats(string sport, int playerId, int year, string seasonSegment, string? grouping = null)
+        {
+            var request = new RestRequest($"/stats/{sport}/player/{playerId}?season={year}&season_type={seasonSegment}", Method.Get);
+            var response = await _client.ExecuteAsync(request);
+            return JsonConvert.DeserializeObject<StatsResponse>(response.Content) ?? new StatsResponse();
+        }
+
+        /// <summary>
+        /// Function to return stats for all players based on sport, season type and year.
+        /// </summary>
+        /// <param name="sport">Currently only supports "nfl"</param>
+        /// <param name="seasonSegment">Season segment, (pre, regular, post)</param>
+        /// <param name="year">Year to return</param>
+        /// <param name="grouping">Optional parameter, default returns entire season, week returns by week</param>
+        /// <param name="ordering">Optional parameter, (pts_ppr, pts_hppr, pts_std)</param>
+        /// <returns>Returns a list of the Stats object for given player</returns>
+        public async Task<IEnumerable<Stats>> GetTeamStats(string sport, int year, string seasonSegment, string? ordering = null)
+        {
+            var request = new RestRequest($"/stats/{sport}/{year}?season_type={seasonSegment}&position[]=TEAM&order_by={ordering}", Method.Get);
+            var response = await _client.ExecuteAsync(request);
+            return JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
+        }
+
+        /// <summary>
+        /// Function to return stats for all players based on sport, year, season type, and positions
+        /// </summary>
+        /// <param name="sport">Currently only supports "nfl"</param>
+        /// <param name="seasonSegment">Season segment, (pre, regular, post)</param>
+        /// <param name="year">Year to return</param>
+        /// <param name="positions">Positions to return (TEAM, QB, WR, RB, TE, QB, DEF, DE, LB, DB, K)</param>
+        /// <param name="ordering">Optional parameter, (pts_ppr, pts_hppr, pts_std)</param>
+        /// <returns>Returns a list of the Stats object for given player</returns>
+        public async Task<IEnumerable<Stats>> GetStatsByPosition(string sport, int playerId, int year, string seasonSegment, string[] positions, string? ordering = null)
+        {
+            var request = new RestRequest($"/stats/{sport}/{year}?season_type={seasonSegment}{String.Join("&position[]=", positions)}&order_by={ordering}", Method.Get);
+            var response = await _client.ExecuteAsync(request);
+            return JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
+        }
+
+        /// <summary>
+        /// Function to return projections for a specific player based on sport, player id, year, and season type.
+        /// </summary>
+        /// <param name="sport">Currently only supports "nfl"</param>
+        /// <param name="playerId">ID of the player to return</param>
+        /// <param name="seasonSegment">Season segment, (pre, regular, post)</param>
+        /// <param name="year">Year to return</param>
+        /// <param name="grouping">Optional parameter, default returns entire season, week returns by week</param>
+        /// <returns>Returns a list of the Stats object for given player</returns>
+        public async Task<IEnumerable<Stats>> GetPlayerProjections(string sport, int playerId, int year, string seasonSegment, string? grouping = null)
+        {
+            var request = new RestRequest($"/projections/{sport}/player/{playerId}?season={year}&season_type={seasonSegment}", Method.Get);
+            var response = await _client.ExecuteAsync(request);
+            return JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
+        }
     }
 }

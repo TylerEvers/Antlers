@@ -22,7 +22,7 @@ namespace Antlers.IntegrationTests.Sleeper
         }
 
         [Fact]
-        public async void GetLeague_WithInvalidLeagueId_ReturnsLeague()
+        public async void GetLeague_WithInvalidLeagueId_ReturnsNullLeague()
         {
             // Arrange
             var apiClient = new SleeperApiClient(new SleeperAppBaseUriStrategy());
