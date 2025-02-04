@@ -4,10 +4,8 @@ namespace Antlers.IntegrationTests.Sleeper
 {
     public class ScheduleTests
     {
-        //public async Task<IEnumerable<Schedule>> GetSchedule(string sport, string segment, int year)
-
         [Fact]
-        public async void GetSchedule_ValidRequest_ReturnsSchedule()
+        public async Task GetSchedule_ValidRequest_ReturnsSchedule()
         {
             // Arrange
             var apiClient = new SleeperApiClient(new SleeperWebBaseUriStrategy());
@@ -21,7 +19,7 @@ namespace Antlers.IntegrationTests.Sleeper
         }
 
         [Fact]
-        public async void GetSchedule_WithInvalidYear_ReturnsEmptySchedule()
+        public async Task GetSchedule_WithInvalidYear_ReturnsEmptySchedule()
         {
             // Arrange
             var apiClient = new SleeperApiClient(new SleeperWebBaseUriStrategy());

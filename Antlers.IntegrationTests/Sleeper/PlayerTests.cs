@@ -8,7 +8,7 @@ namespace Antlers.IntegrationTests.Sleeper
         private const int _invalidPlayerId = 0;
 
         [Fact]
-        public async void GetPlayer_WithValidPlayerId_ReturnsPlayer()
+        public async Task GetPlayer_WithValidPlayerId_ReturnsPlayer()
         {
             // Arrange
             var apiClient = new SleeperApiClient(new SleeperWebBaseUriStrategy());
@@ -22,7 +22,7 @@ namespace Antlers.IntegrationTests.Sleeper
         }
 
         [Fact]
-        public async void GetPlayer_WithInvalidPlayerId_ReturnsNullPlayer()
+        public async Task GetPlayer_WithInvalidPlayerId_ReturnsNullPlayer()
         {
             // Arrange
             var apiClient = new SleeperApiClient(new SleeperWebBaseUriStrategy());

@@ -8,7 +8,7 @@ namespace Antlers.IntegrationTests.Sleeper
         private const int _invalidLeagueId = 0;
 
         [Fact]
-        public async void GetLeague_WithValidLeagueId_ReturnsLeague()
+        public async Task GetLeague_WithValidLeagueId_ReturnsLeague()
         {
             // Arrange
             var apiClient = new SleeperApiClient(new SleeperAppBaseUriStrategy());
@@ -22,7 +22,7 @@ namespace Antlers.IntegrationTests.Sleeper
         }
 
         [Fact]
-        public async void GetLeague_WithInvalidLeagueId_ReturnsNullLeague()
+        public async Task GetLeague_WithInvalidLeagueId_ReturnsNullLeague()
         {
             // Arrange
             var apiClient = new SleeperApiClient(new SleeperAppBaseUriStrategy());
