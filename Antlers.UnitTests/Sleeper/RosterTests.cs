@@ -10,8 +10,10 @@ namespace Antlers.UnitTests.Sleeper
         {
             // Arrange
             var validRoster = new RosterFaker().GenerateValidRoster();
+            
             // Act
             var json = JsonConvert.SerializeObject(validRoster);
+            
             // Assert
             string expectedJson = $"{{\"roster_id\":{validRoster.RosterId}," +
                                   $"\"players\":[{string.Join(",", validRoster.Players)}]," +
@@ -30,7 +32,7 @@ namespace Antlers.UnitTests.Sleeper
                                   $"\"fpts_against\":{validRoster.Settings.FantasyPointsAgainst}," +
                                   $"\"fpts_against_decimal\":{validRoster.Settings.FantasyPointsAgainstDecimal}}}," +
                                   $"\"owner_id\":\"{validRoster.OwnerId}\"," +
-                                  $"\"co_owners\":{(validRoster.CoOwners == null ? "null" : $"[{string.Join(",", validRoster.CoOwners.Select(co => $"\"{co}\""))}]")}," +
+                                  $"\"co_owners\":{(validRoster.CoOwners == null ? "" : $"[{string.Join(",", validRoster.CoOwners.Select(co => $"\"{co}\""))}]")}," +
                                   $"\"league_id\":\"{validRoster.LeagueId}\"}}";
 
             Assert.Equal(expectedJson, json);

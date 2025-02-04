@@ -69,7 +69,10 @@ namespace Antlers.Sleeper
         /// <returns>Returns a list of the Player object containing Sleeper Trending data</returns>
         public async Task<IEnumerable<Player>> GetTrendingPlayers(string sport, string type, int lookbackHours = 24, int limit = 25)
         {
-            var request = new RestRequest($"/players/{sport}/trending/{type}?lookback_hours={lookbackHours}&limit={limit}", Method.Get);
+            var request = new RestRequest($"/players/{sport}/trending/{type}", Method.Get);
+            request.AddQueryParameter("lookback_hours", lookbackHours.ToString());
+            request.AddQueryParameter("limit", limit.ToString());
+
             var response = await _client.ExecuteAsync(request);
             return JsonConvert.DeserializeObject<IEnumerable<Player>>(response.Content) ?? new List<Player>();
         }
@@ -109,9 +112,21 @@ namespace Antlers.Sleeper
         /// <param name="year">Year to return</param>
         /// <param name="grouping">Optional parameter, default returns entire season, week returns by week</param>
         /// <returns>Returns a list of the Stats object for given player</returns>
-        public async Task<StatsResponse> GetPlayerStats(string sport, int playerId, int year, string seasonSegment, string? grouping = null)
+        public async Task<StatsResponse> GetPlayerStats(string sport, int playerId, int year, string seasonSegment, int? week = null, string? grouping = null)
         {
-            var request = new RestRequest($"/stats/{sport}/player/{playerId}?season={year}&season_type={seasonSegment}", Method.Get);
+            var request = new RestRequest($"/stats/{sport}/player/{playerId}", Method.Get);
+            
+            request.AddQueryParameter("season", year.ToString());
+            request.AddQueryParameter("season_type", seasonSegment);
+            if (week != null)
+            {
+                request.AddQueryParameter("week", week.ToString());
+            }
+            if (grouping != null)
+            {
+                request.AddQueryParameter("grouping", grouping);
+            }
+
             var response = await _client.ExecuteAsync(request);
             return JsonConvert.DeserializeObject<StatsResponse>(response.Content) ?? new StatsResponse();
         }
@@ -127,7 +142,14 @@ namespace Antlers.Sleeper
         /// <returns>Returns a list of the Stats object for given player</returns>
         public async Task<IEnumerable<Stats>> GetTeamStats(string sport, int year, string seasonSegment, string? ordering = null)
         {
-            var request = new RestRequest($"/stats/{sport}/{year}?season_type={seasonSegment}&position[]=TEAM&order_by={ordering}", Method.Get);
+            var request = new RestRequest($"/stats/{sport}/{year}", Method.Get);
+            request.AddQueryParameter("season_type", seasonSegment);
+            request.AddQueryParameter("position[]", "TEAM");
+            if (ordering != null)
+            {
+                request.AddQueryParameter("order_by", ordering);
+            }
+
             var response = await _client.ExecuteAsync(request);
             return JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
         }
@@ -143,7 +165,17 @@ namespace Antlers.Sleeper
         /// <returns>Returns a list of the Stats object for given player</returns>
         public async Task<IEnumerable<Stats>> GetStatsByPosition(string sport, int playerId, int year, string seasonSegment, string[] positions, string? ordering = null)
         {
-            var request = new RestRequest($"/stats/{sport}/{year}?season_type={seasonSegment}{String.Join("&position[]=", positions)}&order_by={ordering}", Method.Get);
+            var request = new RestRequest($"/stats/{sport}/{year}", Method.Get);
+            request.AddQueryParameter("season_type", seasonSegment);
+            foreach (var position in positions)
+            {
+                request.AddQueryParameter("position[]", position);
+            }
+            if (ordering != null)
+            {
+                request.AddQueryParameter("order_by", ordering);
+            }
+
             var response = await _client.ExecuteAsync(request);
             return JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
         }
@@ -159,7 +191,10 @@ namespace Antlers.Sleeper
         /// <returns>Returns a list of the Stats object for given player</returns>
         public async Task<IEnumerable<Stats>> GetPlayerProjections(string sport, int playerId, int year, string seasonSegment, string? grouping = null)
         {
-            var request = new RestRequest($"/projections/{sport}/player/{playerId}?season={year}&season_type={seasonSegment}", Method.Get);
+            var request = new RestRequest($"/projections/{sport}/player/{playerId}", Method.Get);
+            request.AddQueryParameter("season", year.ToString());
+            request.AddQueryParameter("season_type", seasonSegment);
+
             var response = await _client.ExecuteAsync(request);
             return JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
         }

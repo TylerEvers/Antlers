@@ -27,7 +27,7 @@ public class RosterFaker
                 FantasyPointsAgainstDecimal = f.Random.Number()
             })
             .RuleFor(r => r.OwnerId, f => f.Random.Number().ToString())
-            .RuleFor(r => r.CoOwners, f => f.Random.ArrayElements(new string[f.Random.Int(1, 5)].ToArray()))
+            .RuleFor(r => r.CoOwners, f => f.Random.ArrayElements(Enumerable.Range(1, f.Random.Int(1, 5)).Select(i => i.ToString()).ToArray()))
             .RuleFor(r => r.LeagueId, f => f.Random.Number().ToString());
 
         return rosterFaker.Generate();

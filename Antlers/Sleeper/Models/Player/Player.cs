@@ -45,7 +45,7 @@ namespace Antlers.Sleeper.Models
         [JsonProperty("practice_participation")]
         public bool? PracticeParticipation { get; set; }
         [JsonProperty("injury_start_date")]
-        public DateTime? InjuryStartDate { get; set; }
+        public string? InjuryStartDate { get; set; }
         [JsonProperty("injury_status")]
         public bool? InjuryStatus { get; set; }
         [JsonProperty("injury_body_part")]
@@ -65,11 +65,11 @@ namespace Antlers.Sleeper.Models
         [JsonProperty("fantasy_data_id")]
         public int? FantasyDataId { get; set; }
         [JsonProperty("stats_id")]
-        public string? StatsId { get; set; }
+        public int? StatsId { get; set; }
         [JsonProperty("sportradar_id")]
         public string? SportRadarId { get; set; }
         [JsonProperty("espn_id")]
-        public string? EspnId { get; set; }
+        public int? EspnId { get; set; }
         [JsonProperty("rotowire_id")]
         public int RotowireId { get; set; }
         [JsonProperty("rotoworld_id")]
