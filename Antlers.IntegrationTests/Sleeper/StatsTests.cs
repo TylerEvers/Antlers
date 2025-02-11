@@ -4,7 +4,7 @@ namespace Antlers.IntegrationTests.Sleeper
 {
     public class StatsTests
     {
-        private const int _validPlayerId = 4881; //Lamar Jackson TODO: Move to appsettings?
+        private const int _validPlayerId = 4881;
         private const int _invalidPlayerId = 0;
 
         [Fact]

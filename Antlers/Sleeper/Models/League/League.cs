@@ -1,13 +1,10 @@
 ﻿using Newtonsoft.Json;
+using System.Runtime.InteropServices;
 
 namespace Antlers.Sleeper.Models
 {
     public class League
     {
-        [JsonProperty("league_id")]
-        public string? LeagueId { get; set; }
-        [JsonProperty("previous_league_id")]
-        public string? PreviousLeagueId { get; set; }
         [JsonProperty("name")]
         public string? Name { get; set; }
         [JsonProperty("status")]
@@ -26,6 +23,14 @@ namespace Antlers.Sleeper.Models
         public ScoringSettings? ScoringSettings { get; set; }
         [JsonProperty("draft_id")]
         public string? DraftId { get; set; }
+        [JsonProperty("league_id")]
+        public string? LeagueId { get; set; }
+        [JsonProperty("previous_league_id")]
+        public string? PreviousLeagueId { get; set; }
+        [JsonProperty("bracket_id")]
+        public long? BracketId { get; set; }
+        [JsonProperty("losers_bracket_id")]
+        public long? LosersBracketId { get; set; }
         [JsonProperty("roster_positions")]
         public string[]? RosterPositions { get; set; }
         [JsonProperty("total_rosters")]

@@ -4,7 +4,7 @@ namespace Antlers.IntegrationTests.Sleeper
 {
     public class LeagueTests
     {
-        private const long _validLeagueId = 1069748062454652928; //TODO: Move to appsettings?
+        private const long _validLeagueId = 1069748062454652928;
         private const int _invalidLeagueId = 0;
 
         [Fact]

@@ -4,204 +4,202 @@ namespace Antlers.Sleeper.Models
 {
     public class Stats
     {
-        //TODO: Rename properties, keep Sleeper shorthand, add casing, and remove underscores OR use generaric name ie RushTd vs RushingTouchdowns?
-        //TODO: Stats/Projs share a ton of properties, make these inheritable, one class, two unique classes?
         [JsonProperty("adp_2qb")]
-        public float adp_2qb { get; set; }
+        public float Adp2Qb { get; set; }
 
         [JsonProperty("adp_dynasty")]
-        public float adp_dynasty { get; set; }
+        public float AdpDynasty { get; set; }
 
         [JsonProperty("adp_dynasty_2qb")]
-        public float adp_dynasty_2qb { get; set; }
+        public float AdpDynasty2Qb { get; set; }
 
         [JsonProperty("adp_dynasty_half_ppr")]
-        public float adp_dynasty_half_ppr { get; set; }
+        public float AdpDynastyHalfPpr { get; set; }
 
         [JsonProperty("adp_dynasty_ppr")]
-        public float adp_dynasty_ppr { get; set; }
+        public float AdpDynastyPpr { get; set; }
 
         [JsonProperty("adp_dynasty_std")]
-        public float adp_dynasty_std { get; set; }
+        public float AdpDynastyStd { get; set; }
 
         [JsonProperty("adp_half_ppr")]
-        public float adp_half_ppr { get; set; }
+        public float AdpHalfPpr { get; set; }
 
         [JsonProperty("adp_idp")]
-        public float adp_idp { get; set; }
+        public float AdpIdp { get; set; }
 
         [JsonProperty("adp_ppr")]
-        public float adp_ppr { get; set; }
+        public float AdpPpr { get; set; }
 
         [JsonProperty("adp_rookie")]
-        public float adp_rookie { get; set; }
+        public float AdpRookie { get; set; }
 
         [JsonProperty("adp_std")]
-        public float adp_std { get; set; }
+        public float AdpStd { get; set; }
 
         [JsonProperty("rush_lng")]
-        public float rush_lng { get; set; }
+        public float RushLng { get; set; }
 
         [JsonProperty("rush_td_lng")]
-        public float rush_td_lng { get; set; }
+        public float RushTdLng { get; set; }
 
         [JsonProperty("pass_int")]
-        public float pass_int { get; set; }
+        public float PassInt { get; set; }
 
         [JsonProperty("pass_air_yd")]
-        public float pass_air_yd { get; set; }
+        public float PassAirYd { get; set; }
 
         [JsonProperty("pos_rank_std")]
-        public float pos_rank_std { get; set; }
+        public float PosRankStd { get; set; }
 
         [JsonProperty("gp")]
-        public float gp { get; set; }
+        public float GamesPlayed { get; set; }
 
         [JsonProperty("bonus_pass_yd_400")]
-        public float bonus_pass_yd_400 { get; set; }
+        public float BonusPassYd400 { get; set; }
 
         [JsonProperty("rank_half_ppr")]
-        public int rank_half_ppr { get; set; }
+        public int RankHalfPpr { get; set; }
 
         [JsonProperty("tm_def_snp")]
-        public float tm_def_snp { get; set; }
+        public float TeamDefSnp { get; set; }
 
         [JsonProperty("gms_active")]
-        public float gms_active { get; set; }
+        public float GamesActive { get; set; }
 
         [JsonProperty("penalty")]
-        public float penalty { get; set; }
+        public float Penalty { get; set; }
 
         [JsonProperty("pass_sack_yds")]
-        public float pass_sack_yds { get; set; }
+        public float PassSackYds { get; set; }
 
         [JsonProperty("rank_std")]
-        public int rank_std { get; set; }
+        public int RankStd { get; set; }
 
         [JsonProperty("pos_rank_half_ppr")]
-        public float pos_rank_half_ppr { get; set; }
+        public float PosRankHalfPpr { get; set; }
 
         [JsonProperty("rush_td")]
-        public float rush_td { get; set; }
+        public float RushTd { get; set; }
 
         [JsonProperty("pass_ypc")]
-        public float pass_ypc { get; set; }
+        public float PassYpc { get; set; }
 
         [JsonProperty("pass_lng")]
-        public float pass_lng { get; set; }
+        public float PassLng { get; set; }
 
         [JsonProperty("pass_rush_yd")]
-        public float pass_rush_yd { get; set; }
+        public float PassRushYd { get; set; }
 
         [JsonProperty("pts_std")]
-        public float pts_std { get; set; }
+        public float PtsStd { get; set; }
 
         [JsonProperty("tm_st_snp")]
-        public float tm_st_snp { get; set; }
+        public float TeamStSnp { get; set; }
 
         [JsonProperty("pass_rtg")]
-        public float pass_rtg { get; set; }
+        public float PassRtg { get; set; }
 
         [JsonProperty("bonus_pass_cmp_25")]
-        public float bonus_pass_cmp_25 { get; set; }
+        public float BonusPassCmp25 { get; set; }
 
         [JsonProperty("rush_fd")]
-        public float rush_fd { get; set; }
+        public float RushFd { get; set; }
 
         [JsonProperty("pass_int_td")]
-        public float pass_int_td { get; set; }
+        public float PassIntTd { get; set; }
 
         [JsonProperty("pass_att")]
-        public float pass_att { get; set; }
+        public float PassAtt { get; set; }
 
         [JsonProperty("fum_lost")]
-        public float fum_lost { get; set; }
+        public float FumLost { get; set; }
 
         [JsonProperty("rush_att")]
-        public float rush_att { get; set; }
+        public float RushAtt { get; set; }
 
         [JsonProperty("pass_rz_att")]
-        public float pass_rz_att { get; set; }
+        public float PassRzAtt { get; set; }
 
         [JsonProperty("rush_ypa")]
-        public float rush_ypa { get; set; }
+        public float RushYpa { get; set; }
 
         [JsonProperty("gs")]
-        public float gs { get; set; }
+        public float Gs { get; set; }
 
         [JsonProperty("tm_off_snp")]
-        public float tm_off_snp { get; set; }
+        public float TeamOffSnp { get; set; }
 
         [JsonProperty("pos_rank_ppr")]
-        public float pos_rank_ppr { get; set; }
+        public float PosRankPpr { get; set; }
 
         [JsonProperty("rank_ppr")]
-        public int rank_ppr { get; set; }
+        public int RankPpr { get; set; }
 
         [JsonProperty("pass_sack")]
-        public float pass_sack { get; set; }
+        public float PassSack { get; set; }
 
         [JsonProperty("penalty_yd")]
-        public float penalty_yd { get; set; }
+        public float PenaltyYd { get; set; }
 
         [JsonProperty("off_snp")]
-        public float off_snp { get; set; }
+        public float OffSnp { get; set; }
 
         [JsonProperty("pass_cmp")]
-        public float pass_cmp { get; set; }
+        public float PassCmp { get; set; }
 
         [JsonProperty("cmp_pct")]
-        public float cmp_pct { get; set; }
+        public float CmpPct { get; set; }
 
         [JsonProperty("rush_yac")]
-        public float rush_yac { get; set; }
+        public float RushYac { get; set; }
 
         [JsonProperty("pts_half_ppr")]
-        public float pts_half_ppr { get; set; }
+        public float PtsHalfPpr { get; set; }
 
         [JsonProperty("pass_ypa")]
-        public float pass_ypa { get; set; }
+        public float PassYpa { get; set; }
 
         [JsonProperty("pass_cmp_40p")]
-        public float pass_cmp_40p { get; set; }
+        public float PassCmp40p { get; set; }
 
         [JsonProperty("pass_fd")]
-        public float pass_fd { get; set; }
+        public float PassFd { get; set; }
 
         [JsonProperty("pass_yd")]
-        public float pass_yd { get; set; }
+        public float PassYd { get; set; }
 
         [JsonProperty("rush_rz_att")]
-        public float rush_rz_att { get; set; }
+        public float RushRzAtt { get; set; }
 
         [JsonProperty("rush_rec_yd")]
-        public float rush_rec_yd { get; set; }
+        public float RushRecYd { get; set; }
 
         [JsonProperty("pass_td")]
-        public float pass_td { get; set; }
+        public float PassTd { get; set; }
 
         [JsonProperty("anytime_tds")]
-        public float anytime_tds { get; set; }
+        public float AnytimeTds { get; set; }
 
         [JsonProperty("bonus_fd_qb")]
-        public float bonus_fd_qb { get; set; }
+        public float BonusFdQb { get; set; }
 
         [JsonProperty("rush_yd")]
-        public float rush_yd { get; set; }
+        public float RushYd { get; set; }
 
         [JsonProperty("fum")]
-        public float fum { get; set; }
+        public float Fum { get; set; }
 
         [JsonProperty("pass_td_lng")]
-        public float pass_td_lng { get; set; }
+        public float PassTdLng { get; set; }
 
         [JsonProperty("pts_ppr")]
-        public float pts_ppr { get; set; }
+        public float PtsPpr { get; set; }
 
         [JsonProperty("pass_inc")]
-        public float pass_inc { get; set; }
+        public float PassInc { get; set; }
 
         [JsonProperty("rush_tkl_loss")]
-        public float rush_tkl_loss { get; set; }
+        public float RushTklLoss { get; set; }
     }
 }

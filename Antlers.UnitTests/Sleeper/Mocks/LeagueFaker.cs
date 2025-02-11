@@ -8,10 +8,8 @@ namespace Antlers.UnitTests.Sleeper.Mocks
         public League GenerateValidLeague()
         {
             var leagueFaker = new Faker<League>()
-                .RuleFor(l => l.LeagueId, f => f.Random.Guid().ToString())
-                .RuleFor(l => l.PreviousLeagueId, f => f.Random.Guid().ToString())
-                .RuleFor(l => l.Name, f => f.Random.String())
-                .RuleFor(l => l.Status, f => f.Random.String())
+                .RuleFor(l => l.Name, f => f.Name.FullName())
+                .RuleFor(p => p.Status, f => f.Random.ArrayElement(new[] { "complete", "inactive", "active" }))
                 .RuleFor(l => l.Settings, f => new LeagueSettings
                 {
                     //League settings constructor that uses faker to generate test values
@@ -72,10 +70,10 @@ namespace Antlers.UnitTests.Sleeper.Mocks
                     ReserveAllowCov = f.Random.Int(0, 1),
                     DailyWaiversLastRan = f.Random.Int(0, 100)
                 })
-                .RuleFor(l => l.Avatar, f => f.Random.String())
+                .RuleFor(l => l.Avatar, f => f.Random.Guid().ToString())
                 .RuleFor(l => l.Season, f => f.Date.Between(DateTime.Now.AddYears(-7), DateTime.Now).ToString("yyyy"))
-                .RuleFor(l => l.SeasonType, f => f.Random.String())
-                .RuleFor(l => l.Sport, f => f.Random.String())
+                .RuleFor(l => l.SeasonType, f => f.Random.ArrayElement(new[] { "pre", "reg", "post" }))
+                .RuleFor(l => l.Sport, f => "nfl")
                 .RuleFor(l => l.ScoringSettings, f => new ScoringSettings
                 {
                     // Passing Settings
@@ -156,6 +154,10 @@ namespace Antlers.UnitTests.Sleeper.Mocks
                     Fgmiss = f.Random.Double(0.0, -1.0)
                 })
                 .RuleFor(l => l.DraftId, f => f.Random.Guid().ToString())
+                .RuleFor(l => l.LeagueId, f => f.Random.Guid().ToString())
+                .RuleFor(l => l.PreviousLeagueId, f => f.Random.Guid().ToString())
+                .RuleFor(l => l.BracketId, f => f.Random.Long())
+                .RuleFor(l => l.LosersBracketId, f => f.Random.Long())
                 .RuleFor(l => l.RosterPositions, f => f.Random.ArrayElements(new[] { "QB", "RB", "WR", "TE", "K", "DEF", "DL", "LB", "DB" }, f.Random.Int(1, 3)).ToArray())
                 .RuleFor(l => l.TotalRosters, f => f.Random.Int(10, 30))
                 ;
