@@ -163,7 +163,7 @@ namespace Antlers.Sleeper
         /// <param name="positions">Positions to return (TEAM, QB, WR, RB, TE, QB, DEF, DE, LB, DB, K)</param>
         /// <param name="ordering">Optional parameter, (pts_ppr, pts_hppr, pts_std)</param>
         /// <returns>Returns a list of the Stats object for given player</returns>
-        public async Task<IEnumerable<Stats>> GetStatsByPosition(string sport, int playerId, int year, string seasonSegment, string[] positions, string? ordering = null)
+        public async Task<IEnumerable<Stats>> GetStatsByPosition(string sport, int year, string seasonSegment, string[] positions, string? ordering = null)
         {
             var request = new RestRequest($"/stats/{sport}/{year}", Method.Get);
             request.AddQueryParameter("season_type", seasonSegment);
