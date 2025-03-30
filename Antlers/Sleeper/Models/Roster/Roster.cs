@@ -1,24 +1,26 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Antlers.Sleeper.Models
 {
     public class Roster
     {
-        [JsonPropertyName("roster_id")]
+        [JsonProperty("roster_id")]
         public int RosterId { get; set; }
-        [JsonPropertyName("players")]
+        [JsonProperty("players")]
         public int[]? Players { get; set; }
-        [JsonPropertyName("starters")]
+        [JsonProperty("starters")]
         public int[]? Starters { get; set; }
-        [JsonPropertyName("reserve")]
+        [JsonProperty("reserve")]
         public int[]? Reserve { get; set; }
-        [JsonPropertyName("taxi")]
+        [JsonProperty("taxi")]
         public int[]? Taxi { get; set; }
-        [JsonPropertyName("settings")]
+        [JsonProperty("settings")]
         public RosterSettings? Settings { get; set; }
-        [JsonPropertyName("owner_id")]
+        [JsonProperty("owner_id")]
         public string? OwnerId { get; set; }
-        [JsonPropertyName("league_id")]
+        [JsonProperty("co_owners")]
+        public string[]? CoOwners { get; set; }
+        [JsonProperty("league_id")]
         public string? LeagueId { get; set; }
     }
 }
