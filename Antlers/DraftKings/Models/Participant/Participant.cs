@@ -7,9 +7,9 @@ namespace Antlers.DraftKings.Models
         [JsonProperty("id")]
         public string? Id { get; set; }
         [JsonProperty("name")]
-        public string? Name { get; set; }
+        public required string Name { get; set; }
         [JsonProperty("type")]
-        public string? Type { get; set; }
+        public required string Type { get; set; }
         [JsonProperty("metadata")]
         public ParticipantMetadata? Metadata { get; set; }
     }

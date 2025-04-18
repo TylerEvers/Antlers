@@ -24,9 +24,23 @@ namespace Antlers.DraftKings.Models
         public int SortOrder { get; set; }
         [JsonProperty("tags")]
         public string[]? Tags { get; set; }
+        [JsonProperty("blurbId")]
+        public string? BlurbId { get; set; }
+        [JsonProperty("dynamicMetadata")]
+        public DynamicMetadata? DynamicMetadata { get; set; }
+    }
 
-        //Currently no response examples utilizing this property 
-        //[JsonProperty("dynamicMetadata")]
-        //public DynamicMetadata? DynamicMetadata { get; set; }
+    public class MarketType
+    {
+        [JsonProperty("id")]
+        public string? Id { get; set; }
+        [JsonProperty("betOfferTypeId")]
+        public int BetOfferTypeId { get; set; }
+        [JsonProperty("name")]
+        public string? Name { get; set; }
+    }
+
+    public class DynamicMetadata
+    {
     }
 }

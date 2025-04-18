@@ -5,7 +5,7 @@ namespace Antlers.DraftKings.Models
     public class Event
     {
         [JsonProperty("id")]
-        public string? Id { get; set; }
+        public required string Id { get; set; }
         [JsonProperty("seoIdentifier")]
         public string? SEOIdentifier { get; set; }
         [JsonProperty("sportId")]
@@ -30,6 +30,12 @@ namespace Antlers.DraftKings.Models
         public int SortOrder { get; set; }
         [JsonProperty("subscriptionKey")]
         public string? SubscriptionKey { get; set; }
+    }
+
+    public class EventScorecard
+    {
+        [JsonProperty("scorecardComponentId")]
+        public int ScorecardComponentId { get; set; }
     }
 
     public class EventMetadata
