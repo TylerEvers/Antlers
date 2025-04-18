@@ -16,7 +16,7 @@ namespace Antlers.DraftKings.Models
         public int? TrueOdds { get; set; }
         [JsonProperty("outcomeType")]
         public string? OutcomeType { get; set; }
-        [JsonProperty("particpants")]
+        [JsonProperty("participants")]
         public Participant[]? Participants { get; set; }
         [JsonProperty("sortOrder")]
         public int? SortOrder { get; set; }
