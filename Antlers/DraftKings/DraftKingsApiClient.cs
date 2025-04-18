@@ -4,7 +4,7 @@ using RestSharp;
 
 namespace Antlers.DraftKings
 {
-    class DraftKingsApiClient
+    public class DraftKingsApiClient
     {
         private RestClient _client;
 
