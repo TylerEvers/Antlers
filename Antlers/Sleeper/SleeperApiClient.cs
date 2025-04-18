@@ -28,6 +28,17 @@ namespace Antlers.Sleeper
         {
             var request = new RestRequest($"/league/{leagueId}", Method.Get);
             var response = await _client.ExecuteAsync(request);
+
+            if (!response.IsSuccessful)
+            {
+                throw new HttpRequestException($"Failed to fetch league: {response.StatusCode} - {response.Content}");
+            }
+
+            if (string.IsNullOrEmpty(response.Content))
+            {
+                return new League();
+            }
+
             return JsonConvert.DeserializeObject<League>(response.Content) ?? new League();
         }
 
@@ -41,6 +52,17 @@ namespace Antlers.Sleeper
         {
             var request = new RestRequest($"/players/{sport}/{playerId}", Method.Get);
             var response = await _client.ExecuteAsync(request);
+
+            if (!response.IsSuccessful)
+            {
+                throw new HttpRequestException($"Failed to fetch player: {response.StatusCode} - {response.Content}");
+            }
+
+            if (string.IsNullOrEmpty(response.Content))
+            {
+                return new Player();
+            }
+
             return JsonConvert.DeserializeObject<Player>(response.Content) ?? new Player();
         }
 
@@ -54,6 +76,17 @@ namespace Antlers.Sleeper
         {
             var request = new RestRequest($"/players/{sport}", Method.Get);
             var response = await _client.ExecuteAsync(request);
+
+            if (!response.IsSuccessful)
+            {
+                throw new HttpRequestException($"Failed to fetch players: {response.StatusCode} - {response.Content}");
+            }
+
+            if (string.IsNullOrEmpty(response.Content))
+            {
+                return new List<Player>();
+            }
+
             return JsonConvert.DeserializeObject<IEnumerable<Player>>(response.Content) ?? new List<Player>();
         }
 
@@ -74,6 +107,17 @@ namespace Antlers.Sleeper
             request.AddQueryParameter("limit", limit.ToString());
 
             var response = await _client.ExecuteAsync(request);
+
+            if (!response.IsSuccessful)
+            {
+                throw new HttpRequestException($"Failed to fetch players: {response.StatusCode} - {response.Content}");
+            }
+
+            if (string.IsNullOrEmpty(response.Content))
+            {
+                return new List<Player>();
+            }
+
             return JsonConvert.DeserializeObject<IEnumerable<Player>>(response.Content) ?? new List<Player>();
         }
 
@@ -86,6 +130,17 @@ namespace Antlers.Sleeper
         {
             var request = new RestRequest($"/league/{leagueId}/rosters", Method.Get);
             var response = await _client.ExecuteAsync(request);
+
+            if (!response.IsSuccessful)
+            {
+                throw new HttpRequestException($"Failed to fetch rosters: {response.StatusCode} - {response.Content}");
+            }
+
+            if (string.IsNullOrEmpty(response.Content))
+            {
+                return new List<Roster>();
+            }
+
             return JsonConvert.DeserializeObject<IEnumerable<Roster>>(response.Content) ?? new List<Roster>();
         }
 
@@ -100,6 +155,17 @@ namespace Antlers.Sleeper
         {
             var request = new RestRequest($"/schedule/{sport}/{segment}/{year}", Method.Get);
             var response = await _client.ExecuteAsync(request);
+
+            if (!response.IsSuccessful)
+            {
+                throw new HttpRequestException($"Failed to fetch schedule: {response.StatusCode} - {response.Content}");
+            }
+
+            if (string.IsNullOrEmpty(response.Content))
+            {
+                return new List<Schedule>();
+            }
+
             return JsonConvert.DeserializeObject<IEnumerable<Schedule>>(response.Content) ?? new List<Schedule>();
         }
 
@@ -115,7 +181,7 @@ namespace Antlers.Sleeper
         public async Task<StatsResponse> GetPlayerStats(string sport, int playerId, int year, string seasonSegment, int? week = null, string? grouping = null)
         {
             var request = new RestRequest($"/stats/{sport}/player/{playerId}", Method.Get);
-            
+
             request.AddQueryParameter("season", year.ToString());
             request.AddQueryParameter("season_type", seasonSegment);
             if (week != null)
@@ -128,6 +194,17 @@ namespace Antlers.Sleeper
             }
 
             var response = await _client.ExecuteAsync(request);
+
+            if (!response.IsSuccessful)
+            {
+                throw new HttpRequestException($"Failed to fetch stats: {response.StatusCode} - {response.Content}");
+            }
+
+            if (string.IsNullOrEmpty(response.Content))
+            {
+                return new StatsResponse();
+            }
+
             return JsonConvert.DeserializeObject<StatsResponse>(response.Content) ?? new StatsResponse();
         }
 
@@ -151,6 +228,17 @@ namespace Antlers.Sleeper
             }
 
             var response = await _client.ExecuteAsync(request);
+
+            if (!response.IsSuccessful)
+            {
+                throw new HttpRequestException($"Failed to fetch stats: {response.StatusCode} - {response.Content}");
+            }
+
+            if (string.IsNullOrEmpty(response.Content))
+            {
+                return new List<Stats>();
+            }
+
             return JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
         }
 
@@ -177,6 +265,17 @@ namespace Antlers.Sleeper
             }
 
             var response = await _client.ExecuteAsync(request);
+
+            if (!response.IsSuccessful)
+            {
+                throw new HttpRequestException($"Failed to fetch stats: {response.StatusCode} - {response.Content}");
+            }
+
+            if (string.IsNullOrEmpty(response.Content))
+            {
+                return new List<Stats>();
+            }
+
             return JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
         }
 
@@ -196,6 +295,17 @@ namespace Antlers.Sleeper
             request.AddQueryParameter("season_type", seasonSegment);
 
             var response = await _client.ExecuteAsync(request);
+
+            if (!response.IsSuccessful)
+            {
+                throw new HttpRequestException($"Failed to fetch projections: {response.StatusCode} - {response.Content}");
+            }
+
+            if (string.IsNullOrEmpty(response.Content))
+            {
+                return new List<Stats>();
+            }
+
             return JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
         }
     }
