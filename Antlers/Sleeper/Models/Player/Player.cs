@@ -47,7 +47,7 @@ namespace Antlers.Sleeper.Models
         [JsonProperty("injury_start_date")]
         public string? InjuryStartDate { get; set; }
         [JsonProperty("injury_status")]
-        public bool? InjuryStatus { get; set; }
+        public string? InjuryStatus { get; set; }
         [JsonProperty("injury_body_part")]
         public string? InjuryBodyPart { get; set; }
         [JsonProperty("injury_notes")]

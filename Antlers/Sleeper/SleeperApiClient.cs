@@ -23,8 +23,8 @@ namespace Antlers.Sleeper
         /// Link: https://docs.sleeper.com/#get-a-specific-league
         /// </summary>
         /// <param name="leagueId">The ID of the league to retrieve</param>
-        /// <returns>Returns a league object for the specified league</returns>
-        public async Task<League> GetLeague(long leagueId)
+        /// <returns>Returns a tuple of player object and raw JSON for the specified player</returns>
+        public async Task<Tuple<League,string>> GetLeague(long leagueId)
         {
             var request = new RestRequest($"/league/{leagueId}", Method.Get);
             var response = await _client.ExecuteAsync(request);
@@ -34,12 +34,13 @@ namespace Antlers.Sleeper
                 throw new HttpRequestException($"Failed to fetch league: {response.StatusCode} - {response.Content}");
             }
 
-            if (string.IsNullOrEmpty(response.Content))
+            if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null")
             {
-                return new League();
+                return new Tuple<League, string>(new League(), string.Empty);
             }
 
-            return JsonConvert.DeserializeObject<League>(response.Content) ?? new League();
+            var league = JsonConvert.DeserializeObject<League>(response.Content) ?? new League();
+            return new Tuple<League, string>(league, response.Content);
         }
 
         /// <summary>
@@ -47,8 +48,8 @@ namespace Antlers.Sleeper
         /// </summary>
         /// <param name="sport">Currently only supports "nfl"</param>
         /// <param name="playerId">The ID of the player to retrieve</param>
-        /// <returns>Returns a player object for the specified player</returns>
-        public async Task<Player> GetPlayer(string sport, int playerId)
+        /// <returns>Returns a tuple of player object and raw JSON for the specified player</returns>
+        public async Task<Tuple<Player, string>> GetPlayer(string sport, int playerId)
         {
             var request = new RestRequest($"/players/{sport}/{playerId}", Method.Get);
             var response = await _client.ExecuteAsync(request);
@@ -58,12 +59,13 @@ namespace Antlers.Sleeper
                 throw new HttpRequestException($"Failed to fetch player: {response.StatusCode} - {response.Content}");
             }
 
-            if (string.IsNullOrEmpty(response.Content))
+            if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null")
             {
-                return new Player();
+                return new Tuple<Player, string>(new Player(), string.Empty);
             }
 
-            return JsonConvert.DeserializeObject<Player>(response.Content) ?? new Player();
+            var player = JsonConvert.DeserializeObject<Player>(response.Content) ?? new Player();
+            return new Tuple<Player, string>(player, response.Content);
         }
 
         /// <summary>
@@ -71,8 +73,8 @@ namespace Antlers.Sleeper
         /// Link: https://docs.sleeper.com/#players
         /// </summary>
         /// <param name="sport">Currently only supports "nfl".</param>
-        /// <returns>Returns a list of the Player object containing all players of the provided sport</returns>
-        public async Task<IEnumerable<Player>> GetPlayers(string sport)
+        /// <returns>Returns a tuple of list of Player objects and raw JSON containing all players of the provided sport</returns>
+        public async Task<Tuple<IEnumerable<Player>, string>> GetPlayers(string sport)
         {
             var request = new RestRequest($"/players/{sport}", Method.Get);
             var response = await _client.ExecuteAsync(request);
@@ -82,14 +84,14 @@ namespace Antlers.Sleeper
                 throw new HttpRequestException($"Failed to fetch players: {response.StatusCode} - {response.Content}");
             }
 
-            if (string.IsNullOrEmpty(response.Content))
+            if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null")
             {
-                return new List<Player>();
+                return new Tuple<IEnumerable<Player>, string>(new List<Player>(), string.Empty);
             }
 
-            return JsonConvert.DeserializeObject<IEnumerable<Player>>(response.Content) ?? new List<Player>();
+            var players = JsonConvert.DeserializeObject<IEnumerable<Player>>(response.Content) ?? new List<Player>();
+            return new Tuple<IEnumerable<Player>, string>(players, response.Content);
         }
-
 
         /// <summary>
         /// Function to return Trending Player data from Sleeper (requires attribution, they also provide an embed iframe for use on websites/blogs)
@@ -99,8 +101,8 @@ namespace Antlers.Sleeper
         /// <param name="type">Either "add" or "drop"</param>
         /// <param name="lookbackHours">Number of hours to look back (defaults to 24)</param>
         /// <param name="limit">Number of players you want returned (defaults to 25)</param>
-        /// <returns>Returns a list of the Player object containing Sleeper Trending data</returns>
-        public async Task<IEnumerable<Player>> GetTrendingPlayers(string sport, string type, int lookbackHours = 24, int limit = 25)
+        /// <returns>Returns a tuple of list of Player objects and raw JSON containing Sleeper Trending data</returns>
+        public async Task<Tuple<IEnumerable<Player>, string>> GetTrendingPlayers(string sport, string type, int lookbackHours = 24, int limit = 25)
         {
             var request = new RestRequest($"/players/{sport}/trending/{type}", Method.Get);
             request.AddQueryParameter("lookback_hours", lookbackHours.ToString());
@@ -113,20 +115,21 @@ namespace Antlers.Sleeper
                 throw new HttpRequestException($"Failed to fetch players: {response.StatusCode} - {response.Content}");
             }
 
-            if (string.IsNullOrEmpty(response.Content))
+            if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null")
             {
-                return new List<Player>();
+                return new Tuple<IEnumerable<Player>, string>(new List<Player>(), string.Empty);
             }
 
-            return JsonConvert.DeserializeObject<IEnumerable<Player>>(response.Content) ?? new List<Player>();
+            var players = JsonConvert.DeserializeObject<IEnumerable<Player>>(response.Content) ?? new List<Player>();
+            return new Tuple<IEnumerable<Player>, string>(players, response.Content);
         }
 
         /// <summary>
         /// Function to return rosters for a specific league.
         /// </summary>
         /// <param name="leagueId">ID of the league to retrieve rosters from</param>
-        /// <returns>Returns a list of the Roster object</returns>
-        public async Task<IEnumerable<Roster>> GetRosters(long leagueId)
+        /// <returns>Returns a tuple of list of Roster objects and raw JSON</returns>
+        public async Task<Tuple<IEnumerable<Roster>, string>> GetRosters(long leagueId)
         {
             var request = new RestRequest($"/league/{leagueId}/rosters", Method.Get);
             var response = await _client.ExecuteAsync(request);
@@ -136,12 +139,13 @@ namespace Antlers.Sleeper
                 throw new HttpRequestException($"Failed to fetch rosters: {response.StatusCode} - {response.Content}");
             }
 
-            if (string.IsNullOrEmpty(response.Content))
+            if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null")
             {
-                return new List<Roster>();
+                return new Tuple<IEnumerable<Roster>, string>(new List<Roster>(), string.Empty);
             }
 
-            return JsonConvert.DeserializeObject<IEnumerable<Roster>>(response.Content) ?? new List<Roster>();
+            var rosters = JsonConvert.DeserializeObject<IEnumerable<Roster>>(response.Content) ?? new List<Roster>();
+            return new Tuple<IEnumerable<Roster>, string>(rosters, response.Content);
         }
 
         /// <summary>
@@ -150,8 +154,8 @@ namespace Antlers.Sleeper
         /// <param name="sport">Currently only supports "nfl".</param>
         /// <param name="segment">Season segment, (pre, regular, post)</param>
         /// <param name="year">Year to return</param>
-        /// <returns>Returns a list of the Schedule object</returns>
-        public async Task<IEnumerable<Schedule>> GetSchedule(string sport, string segment, int year)
+        /// <returns>Returns a tuple of list of Schedule objects and raw JSON</returns>
+        public async Task<Tuple<IEnumerable<Schedule>, string>> GetSchedule(string sport, string segment, int year)
         {
             var request = new RestRequest($"/schedule/{sport}/{segment}/{year}", Method.Get);
             var response = await _client.ExecuteAsync(request);
@@ -161,12 +165,13 @@ namespace Antlers.Sleeper
                 throw new HttpRequestException($"Failed to fetch schedule: {response.StatusCode} - {response.Content}");
             }
 
-            if (string.IsNullOrEmpty(response.Content))
+            if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null" || response.Content.Trim().ToLower() == "[]")
             {
-                return new List<Schedule>();
+                return new Tuple<IEnumerable<Schedule>, string>(new List<Schedule>(), string.Empty);
             }
 
-            return JsonConvert.DeserializeObject<IEnumerable<Schedule>>(response.Content) ?? new List<Schedule>();
+            var schedule = JsonConvert.DeserializeObject<IEnumerable<Schedule>>(response.Content) ?? new List<Schedule>();
+            return new Tuple<IEnumerable<Schedule>, string>(schedule, response.Content);
         }
 
         /// <summary>
@@ -177,8 +182,8 @@ namespace Antlers.Sleeper
         /// <param name="seasonSegment">Season segment, (pre, regular, post)</param>
         /// <param name="year">Year to return</param>
         /// <param name="grouping">Optional parameter, default returns entire season, week returns by week</param>
-        /// <returns>Returns a list of the Stats object for given player</returns>
-        public async Task<StatsResponse> GetPlayerStats(string sport, int playerId, int year, string seasonSegment, int? week = null, string? grouping = null)
+        /// <returns>Returns a tuple of StatsResponse object and raw JSON for given player</returns>
+        public async Task<Tuple<StatsResponse, string>> GetPlayerStats(string sport, int playerId, int year, string seasonSegment, int? week = null, string? grouping = null)
         {
             var request = new RestRequest($"/stats/{sport}/player/{playerId}", Method.Get);
 
@@ -200,12 +205,13 @@ namespace Antlers.Sleeper
                 throw new HttpRequestException($"Failed to fetch stats: {response.StatusCode} - {response.Content}");
             }
 
-            if (string.IsNullOrEmpty(response.Content))
+            if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null")
             {
-                return new StatsResponse();
+                return new Tuple<StatsResponse, string>(new StatsResponse(), string.Empty);
             }
 
-            return JsonConvert.DeserializeObject<StatsResponse>(response.Content) ?? new StatsResponse();
+            var statsResponse = JsonConvert.DeserializeObject<StatsResponse>(response.Content) ?? new StatsResponse();
+            return new Tuple<StatsResponse, string>(statsResponse, response.Content);
         }
 
         /// <summary>
@@ -216,8 +222,8 @@ namespace Antlers.Sleeper
         /// <param name="year">Year to return</param>
         /// <param name="grouping">Optional parameter, default returns entire season, week returns by week</param>
         /// <param name="ordering">Optional parameter, (pts_ppr, pts_hppr, pts_std)</param>
-        /// <returns>Returns a list of the Stats object for given player</returns>
-        public async Task<IEnumerable<Stats>> GetTeamStats(string sport, int year, string seasonSegment, string? ordering = null)
+        /// <returns>Returns a tuple of list of Stats objects and raw JSON for given player</returns>
+        public async Task<Tuple<IEnumerable<Stats>, string>> GetTeamStats(string sport, int year, string seasonSegment, string? ordering = null)
         {
             var request = new RestRequest($"/stats/{sport}/{year}", Method.Get);
             request.AddQueryParameter("season_type", seasonSegment);
@@ -234,12 +240,13 @@ namespace Antlers.Sleeper
                 throw new HttpRequestException($"Failed to fetch stats: {response.StatusCode} - {response.Content}");
             }
 
-            if (string.IsNullOrEmpty(response.Content))
+            if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null")
             {
-                return new List<Stats>();
+                return new Tuple<IEnumerable<Stats>, string>(new List<Stats>(), string.Empty);
             }
 
-            return JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
+            var stats = JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
+            return new Tuple<IEnumerable<Stats>, string>(stats, response.Content);
         }
 
         /// <summary>
@@ -250,8 +257,8 @@ namespace Antlers.Sleeper
         /// <param name="year">Year to return</param>
         /// <param name="positions">Positions to return (TEAM, QB, WR, RB, TE, QB, DEF, DE, LB, DB, K)</param>
         /// <param name="ordering">Optional parameter, (pts_ppr, pts_hppr, pts_std)</param>
-        /// <returns>Returns a list of the Stats object for given player</returns>
-        public async Task<IEnumerable<Stats>> GetStatsByPosition(string sport, int year, string seasonSegment, string[] positions, string? ordering = null)
+        /// <returns>Returns a tuple of list of Stats objects and raw JSON for given player</returns>
+        public async Task<Tuple<IEnumerable<Stats>, string>> GetStatsByPosition(string sport, int year, string seasonSegment, string[] positions, string? ordering = null)
         {
             var request = new RestRequest($"/stats/{sport}/{year}", Method.Get);
             request.AddQueryParameter("season_type", seasonSegment);
@@ -271,12 +278,13 @@ namespace Antlers.Sleeper
                 throw new HttpRequestException($"Failed to fetch stats: {response.StatusCode} - {response.Content}");
             }
 
-            if (string.IsNullOrEmpty(response.Content))
+            if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null")
             {
-                return new List<Stats>();
+                return new Tuple<IEnumerable<Stats>, string>(new List<Stats>(), string.Empty);
             }
 
-            return JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
+            var stats = JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
+            return new Tuple<IEnumerable<Stats>, string>(stats, response.Content);
         }
 
         /// <summary>
@@ -287,8 +295,8 @@ namespace Antlers.Sleeper
         /// <param name="seasonSegment">Season segment, (pre, regular, post)</param>
         /// <param name="year">Year to return</param>
         /// <param name="grouping">Optional parameter, default returns entire season, week returns by week</param>
-        /// <returns>Returns a list of the Stats object for given player</returns>
-        public async Task<IEnumerable<Stats>> GetPlayerProjections(string sport, int playerId, int year, string seasonSegment, string? grouping = null)
+        /// <returns>Returns a tuple of list of Stats objects and raw JSON for given player</returns>
+        public async Task<Tuple<IEnumerable<Stats>, string>> GetPlayerProjections(string sport, int playerId, int year, string seasonSegment, string? grouping = null)
         {
             var request = new RestRequest($"/projections/{sport}/player/{playerId}", Method.Get);
             request.AddQueryParameter("season", year.ToString());
@@ -301,12 +309,14 @@ namespace Antlers.Sleeper
                 throw new HttpRequestException($"Failed to fetch projections: {response.StatusCode} - {response.Content}");
             }
 
-            if (string.IsNullOrEmpty(response.Content))
+            if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null")
             {
-                return new List<Stats>();
+                return new Tuple<IEnumerable<Stats>, string>(new List<Stats>(), string.Empty);
             }
 
-            return JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
+            var stats = JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
+            return new Tuple<IEnumerable<Stats>, string>(stats, response.Content);
         }
+
     }
 }

@@ -14,11 +14,14 @@ namespace Antlers.IntegrationTests.Sleeper
             var apiClient = new SleeperApiClient(new SleeperWebBaseUriStrategy());
 
             // Act
-            var player = await apiClient.GetPlayer("nfl", _validPlayerId);
+            var result = await apiClient.GetPlayer("nfl", _validPlayerId);
+            var player = result.Item1;
+            var rawJson = result.Item2;
 
             // Assert
             Assert.NotNull(player);
             Assert.Equal(_validPlayerId.ToString(), player.PlayerId);
+            Assert.False(string.IsNullOrEmpty(rawJson));
         }
 
         [Fact]
@@ -28,10 +31,13 @@ namespace Antlers.IntegrationTests.Sleeper
             var apiClient = new SleeperApiClient(new SleeperWebBaseUriStrategy());
 
             // Act
-            var player = await apiClient.GetPlayer("nfl", _invalidPlayerId);
+            var result = await apiClient.GetPlayer("nfl", _invalidPlayerId);
+            var player = result.Item1;
+            var rawJson = result.Item2;
 
             // Assert
             Assert.Null(player.PlayerId);
+            Assert.True(string.IsNullOrEmpty(rawJson));
         }
     }
 }

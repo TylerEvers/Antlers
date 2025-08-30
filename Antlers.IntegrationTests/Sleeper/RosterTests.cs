@@ -14,10 +14,13 @@ namespace Antlers.IntegrationTests.Sleeper
             var apiClient = new SleeperApiClient(new SleeperAppBaseUriStrategy());
 
             // Act
-            var rosters = await apiClient.GetRosters(_validLeagueId);
+            var result = await apiClient.GetRosters(_validLeagueId);
+            var rosters = result.Item1;
+            var rawJson = result.Item2;
 
             // Assert
             Assert.NotNull(rosters);
+            Assert.False(string.IsNullOrEmpty(rawJson));
         }
 
         [Fact]
@@ -27,10 +30,13 @@ namespace Antlers.IntegrationTests.Sleeper
             var apiClient = new SleeperApiClient(new SleeperAppBaseUriStrategy());
 
             // Act
-            var rosters = await apiClient.GetRosters(_invalidLeagueId);
+            var result = await apiClient.GetRosters(_invalidLeagueId);
+            var rosters = result.Item1;
+            var rawJson = result.Item2;
 
             // Assert
             Assert.Empty(rosters);
+            Assert.True(string.IsNullOrEmpty(rawJson));
         }
     }
 }

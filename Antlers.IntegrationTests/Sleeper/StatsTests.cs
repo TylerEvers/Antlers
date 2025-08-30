@@ -1,4 +1,5 @@
 ﻿using Antlers.Sleeper;
+using Antlers.Sleeper.Models;
 
 namespace Antlers.IntegrationTests.Sleeper
 {
@@ -14,11 +15,14 @@ namespace Antlers.IntegrationTests.Sleeper
             var apiClient = new SleeperApiClient(new SleeperWebBaseUriStrategy());
 
             // Act
-            var stats = await apiClient.GetPlayerStats("nfl", _validPlayerId, 2024, "regular");
+            var result = await apiClient.GetPlayerStats("nfl", _validPlayerId, 2024, "regular");
+            var stats = result.Item1;
+            var rawJson = result.Item2;
 
             // Assert
             Assert.NotNull(stats);
             Assert.Equal(_validPlayerId.ToString(), stats.PlayerId);
+            Assert.False(string.IsNullOrEmpty(rawJson));
         }
 
         [Fact]
@@ -28,10 +32,14 @@ namespace Antlers.IntegrationTests.Sleeper
             var apiClient = new SleeperApiClient(new SleeperWebBaseUriStrategy());
 
             // Act
-            var stats = await apiClient.GetPlayerStats("nfl", _invalidPlayerId, 2024, "regular");
+            var result = await apiClient.GetPlayerStats("nfl", _invalidPlayerId, 2024, "regular");
+            var stats = result.Item1;
+            var rawJson = result.Item2;
 
             // Assert
+            Assert.NotNull(stats);
             Assert.Null(stats.PlayerId);
+            Assert.True(string.IsNullOrEmpty(rawJson));
         }
     }
 }

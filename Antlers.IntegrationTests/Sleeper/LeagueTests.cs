@@ -14,11 +14,14 @@ namespace Antlers.IntegrationTests.Sleeper
             var apiClient = new SleeperApiClient(new SleeperAppBaseUriStrategy());
 
             // Act
-            var league = await apiClient.GetLeague(_validLeagueId);
+            var result = await apiClient.GetLeague(_validLeagueId);
+            var league = result.Item1;
+            var rawJson = result.Item2;
 
             // Assert
             Assert.NotNull(league);
             Assert.Equal(_validLeagueId.ToString(), league.LeagueId);
+            Assert.False(string.IsNullOrEmpty(rawJson));
         }
 
         [Fact]
@@ -27,11 +30,9 @@ namespace Antlers.IntegrationTests.Sleeper
             // Arrange
             var apiClient = new SleeperApiClient(new SleeperAppBaseUriStrategy());
 
-            // Act
-            var league = await apiClient.GetLeague(_invalidLeagueId);
-
-            // Assert
-            Assert.Null(league.LeagueId);
+            // Act & Assert
+            await Assert.ThrowsAsync<HttpRequestException>(() =>
+                apiClient.GetLeague(_invalidLeagueId));
         }
     }
 }
