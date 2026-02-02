@@ -1,4 +1,5 @@
 ﻿using Antlers.Sleeper;
+using Xunit.Sdk;
 
 namespace Antlers.IntegrationTests.Sleeper
 {
@@ -29,14 +30,11 @@ namespace Antlers.IntegrationTests.Sleeper
             // Arrange
             var apiClient = new SleeperApiClient(new SleeperAppBaseUriStrategy());
 
-            // Act
-            var result = await apiClient.GetRosters(_invalidLeagueId);
-            var rosters = result.Item1;
-            var rawJson = result.Item2;
-
-            // Assert
-            Assert.Empty(rosters);
-            Assert.True(string.IsNullOrEmpty(rawJson));
+            // Act & Assert
+            await Assert.ThrowsAsync<HttpRequestException>(async () =>
+            {
+                await apiClient.GetRosters(_invalidLeagueId);
+            });
         }
     }
 }

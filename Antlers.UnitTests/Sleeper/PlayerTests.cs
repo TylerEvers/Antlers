@@ -36,7 +36,7 @@ namespace Antlers.UnitTests.Sleeper
                                     $"\"years_exp\":{validPlayer.YearsExperience}," +
                                     $"\"practice_participation\":{validPlayer.PracticeParticipation?.ToString().ToLower()}," +
                                     $"\"injury_start_date\":\"{validPlayer.InjuryStartDate}\"," +
-                                    $"\"injury_status\":{validPlayer.InjuryStatus?.ToString().ToLower()}," +
+                                    $"\"injury_status\":\"{validPlayer.InjuryStatus?.ToString()}\"," +
                                     $"\"injury_body_part\":\"{validPlayer.InjuryBodyPart}\"," +
                                     $"\"injury_notes\":\"{validPlayer.InjuryNotes}\"," +
                                     $"\"search_rank\":{validPlayer.SearchRank}," +

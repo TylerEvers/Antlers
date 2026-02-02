@@ -29,7 +29,7 @@ public class PlayerFaker
             .RuleFor(p => p.YearsExperience, f => f.Random.Int(1, 10))
             .RuleFor(p => p.PracticeParticipation, f => f.Random.Bool())
             .RuleFor(p => p.InjuryStartDate, f => f.Date.Between(DateTime.Now.AddYears(-1), DateTime.Now).ToString("yyyy-MM-dd"))
-            .RuleFor(p => p.InjuryStatus, f => f.Random.Bool())
+            .RuleFor(p => p.InjuryStatus, f => f.Random.ArrayElement(new[] { "Out", "Probable", "Questionable", "Sus", "" }))
             .RuleFor(p => p.InjuryBodyPart, f => f.Random.ArrayElement(new[] { "Arm", "Knee", "ACL", "Hamstring", "MCL", "Achilles", "Concussion" }))
             .RuleFor(p => p.InjuryNotes, f => f.Lorem.Random.ToString())
             .RuleFor(p => p.SearchRank, f => f.Random.Number())
