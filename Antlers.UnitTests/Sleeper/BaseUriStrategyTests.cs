@@ -1,6 +1,6 @@
 ﻿using Antlers.Sleeper;
 
-namespace Antlers.IntegrationTests.Sleeper
+namespace Antlers.UnitTests.Sleeper
 {
     public class BaseUriStrategyTests
     {
