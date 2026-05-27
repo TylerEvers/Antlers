@@ -41,7 +41,7 @@ namespace Antlers.Sleeper.Models
         [JsonProperty("depth_chart_order")]
         public int DepthChartOrder { get; set; }
         [JsonProperty("years_exp")]
-        public int YearsExperience { get; set; }
+        public int? YearsExperience { get; set; }
         [JsonProperty("practice_participation")]
         public bool? PracticeParticipation { get; set; }
         [JsonProperty("injury_start_date")]

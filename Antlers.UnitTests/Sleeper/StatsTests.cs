@@ -9,7 +9,7 @@ namespace Antlers.UnitTests.Sleeper
         public void Stats_Serialization_ReturnsCorrectJson()
         {
             // Arrange
-            var validStats = new StatsResponseFaker().GenerateValidStatsResponse();
+            var validStats = new StatsFaker().GenerateValidStats();
             
             // Act
             var json = JsonConvert.SerializeObject(validStats);
@@ -17,72 +17,72 @@ namespace Antlers.UnitTests.Sleeper
             // Assert
             string expectedJson = $"{{\"date\":\"{validStats.Date}\"," +
                 $"\"stats\":{{" +
-                    $"\"adp_2qb\":{validStats.Stats?.Adp2Qb}," +
-                    $"\"adp_dynasty\":{validStats.Stats?.AdpDynasty}," +
-                    $"\"adp_dynasty_2qb\":{validStats.Stats?.AdpDynasty2Qb}," +
-                    $"\"adp_dynasty_half_ppr\":{validStats.Stats?.AdpDynastyHalfPpr}," +
-                    $"\"adp_dynasty_ppr\":{validStats.Stats?.AdpDynastyPpr}," +
-                    $"\"adp_dynasty_std\":{validStats.Stats?.AdpDynastyStd}," +
-                    $"\"adp_half_ppr\":{validStats.Stats?.AdpHalfPpr}," +
-                    $"\"adp_idp\":{validStats.Stats?.AdpIdp}," +
-                    $"\"adp_ppr\":{validStats.Stats?.AdpPpr}," +
-                    $"\"adp_rookie\":{validStats.Stats?.AdpRookie}," +
-                    $"\"adp_std\":{validStats.Stats?.AdpStd}," +
-                    $"\"rush_lng\":{validStats.Stats?.RushLng}," +
-                    $"\"rush_td_lng\":{validStats.Stats?.RushTdLng}," +
-                    $"\"pass_int\":{validStats.Stats?.PassInt}," +
-                    $"\"pass_air_yd\":{validStats.Stats?.PassAirYd}," +
-                    $"\"pos_rank_std\":{validStats.Stats?.PosRankStd}," +
-                    $"\"gp\":{validStats.Stats?.GamesPlayed}," +
-                    $"\"bonus_pass_yd_400\":{validStats.Stats?.BonusPassYd400}," +
-                    $"\"rank_half_ppr\":{validStats.Stats?.RankHalfPpr}," +
-                    $"\"tm_def_snp\":{validStats.Stats?.TeamDefSnp}," +
-                    $"\"gms_active\":{validStats.Stats?.GamesActive}," +
-                    $"\"penalty\":{validStats.Stats?.Penalty}," +
-                    $"\"pass_sack_yds\":{validStats.Stats?.PassSackYds}," +
-                    $"\"rank_std\":{validStats.Stats?.RankStd}," +
-                    $"\"pos_rank_half_ppr\":{validStats.Stats?.PosRankHalfPpr}," +
-                    $"\"rush_td\":{validStats.Stats?.RushTd}," +
-                    $"\"pass_ypc\":{validStats.Stats?.PassYpc}," +
-                    $"\"pass_lng\":{validStats.Stats?.PassLng}," +
-                    $"\"pass_rush_yd\":{validStats.Stats?.PassRushYd}," +
-                    $"\"pts_std\":{validStats.Stats?.PtsStd}," +
-                    $"\"tm_st_snp\":{validStats.Stats?.TeamStSnp}," +
-                    $"\"pass_rtg\":{validStats.Stats?.PassRtg}," +
-                    $"\"bonus_pass_cmp_25\":{validStats.Stats?.BonusPassCmp25}," +
-                    $"\"rush_fd\":{validStats.Stats?.RushFd}," +
-                    $"\"pass_int_td\":{validStats.Stats?.PassIntTd}," +
-                    $"\"pass_att\":{validStats.Stats?.PassAtt}," +
-                    $"\"fum_lost\":{validStats.Stats?.FumLost}," +
-                    $"\"rush_att\":{validStats.Stats?.RushAtt}," +
-                    $"\"pass_rz_att\":{validStats.Stats?.PassRzAtt}," +
-                    $"\"rush_ypa\":{validStats.Stats?.RushYpa}," +
-                    $"\"gs\":{validStats.Stats?.Gs}," +
-                    $"\"tm_off_snp\":{validStats.Stats?.TeamOffSnp}," +
-                    $"\"pos_rank_ppr\":{validStats.Stats?.PosRankPpr}," +
-                    $"\"rank_ppr\":{validStats.Stats?.RankPpr}," +
-                    $"\"pass_sack\":{validStats.Stats?.PassSack}," +
-                    $"\"penalty_yd\":{validStats.Stats?.PenaltyYd}," +
-                    $"\"off_snp\":{validStats.Stats?.OffSnp}," +
-                    $"\"pass_cmp\":{validStats.Stats?.PassCmp}," +
-                    $"\"cmp_pct\":{validStats.Stats?.CmpPct}," +
-                    $"\"rush_yac\":{validStats.Stats?.RushYac}," +
-                    $"\"pts_half_ppr\":{validStats.Stats?.PtsHalfPpr}," +
-                    $"\"pass_ypa\":{validStats.Stats?.PassYpa}," +
-                    $"\"pass_cmp_40p\":{validStats.Stats?.PassCmp40p}," +
-                    $"\"pass_fd\":{validStats.Stats?.PassFd}," +
-                    $"\"pass_yd\":{validStats.Stats?.PassYd}," +
-                    $"\"rush_rz_att\":{validStats.Stats?.RushRzAtt}," +
-                    $"\"rush_rec_yd\":{validStats.Stats?.RushRecYd}," +
-                    $"\"pass_td\":{validStats.Stats?.PassTd}," +
-                    $"\"anytime_tds\":{validStats.Stats?.AnytimeTds}," +
-                    $"\"bonus_fd_qb\":{validStats.Stats?.BonusFdQb}," +
-                    $"\"rush_yd\":{validStats.Stats?.RushYd}," +
-                    $"\"fum\":{validStats.Stats?.Fum}," +
-                    $"\"pass_td_lng\":{validStats.Stats?.PassTdLng}," +
-                    $"\"pts_ppr\":{validStats.Stats?.PtsPpr}," +
-                    $"\"pass_inc\":{validStats.Stats?.PassInc}," +
-                    $"\"rush_tkl_loss\":{validStats.Stats?.RushTklLoss}" +
+                    $"\"adp_2qb\":{validStats.StatsMetrics?.Adp2Qb}," +
+                    $"\"adp_dynasty\":{validStats.StatsMetrics?.AdpDynasty}," +
+                    $"\"adp_dynasty_2qb\":{validStats.StatsMetrics?.AdpDynasty2Qb}," +
+                    $"\"adp_dynasty_half_ppr\":{validStats.StatsMetrics?.AdpDynastyHalfPpr}," +
+                    $"\"adp_dynasty_ppr\":{validStats.StatsMetrics?.AdpDynastyPpr}," +
+                    $"\"adp_dynasty_std\":{validStats.StatsMetrics?.AdpDynastyStd}," +
+                    $"\"adp_half_ppr\":{validStats.StatsMetrics?.AdpHalfPpr}," +
+                    $"\"adp_idp\":{validStats.StatsMetrics?.AdpIdp}," +
+                    $"\"adp_ppr\":{validStats.StatsMetrics?.AdpPpr}," +
+                    $"\"adp_rookie\":{validStats.StatsMetrics?.AdpRookie}," +
+                    $"\"adp_std\":{validStats.StatsMetrics?.AdpStd}," +
+                    $"\"rush_lng\":{validStats.StatsMetrics?.RushLng}," +
+                    $"\"rush_td_lng\":{validStats.StatsMetrics?.RushTdLng}," +
+                    $"\"pass_int\":{validStats.StatsMetrics?.PassInt}," +
+                    $"\"pass_air_yd\":{validStats.StatsMetrics?.PassAirYd}," +
+                    $"\"pos_rank_std\":{validStats.StatsMetrics?.PosRankStd}," +
+                    $"\"gp\":{validStats.StatsMetrics?.GamesPlayed}," +
+                    $"\"bonus_pass_yd_400\":{validStats.StatsMetrics?.BonusPassYd400}," +
+                    $"\"rank_half_ppr\":{validStats.StatsMetrics?.RankHalfPpr}," +
+                    $"\"tm_def_snp\":{validStats.StatsMetrics?.TeamDefSnp}," +
+                    $"\"gms_active\":{validStats.StatsMetrics?.GamesActive}," +
+                    $"\"penalty\":{validStats.StatsMetrics?.Penalty}," +
+                    $"\"pass_sack_yds\":{validStats.StatsMetrics?.PassSackYds}," +
+                    $"\"rank_std\":{validStats.StatsMetrics?.RankStd}," +
+                    $"\"pos_rank_half_ppr\":{validStats.StatsMetrics?.PosRankHalfPpr}," +
+                    $"\"rush_td\":{validStats.StatsMetrics?.RushTd}," +
+                    $"\"pass_ypc\":{validStats.StatsMetrics?.PassYpc}," +
+                    $"\"pass_lng\":{validStats.StatsMetrics?.PassLng}," +
+                    $"\"pass_rush_yd\":{validStats.StatsMetrics?.PassRushYd}," +
+                    $"\"pts_std\":{validStats.StatsMetrics?.PtsStd}," +
+                    $"\"tm_st_snp\":{validStats.StatsMetrics?.TeamStSnp}," +
+                    $"\"pass_rtg\":{validStats.StatsMetrics?.PassRtg}," +
+                    $"\"bonus_pass_cmp_25\":{validStats.StatsMetrics?.BonusPassCmp25}," +
+                    $"\"rush_fd\":{validStats.StatsMetrics?.RushFd}," +
+                    $"\"pass_int_td\":{validStats.StatsMetrics?.PassIntTd}," +
+                    $"\"pass_att\":{validStats.StatsMetrics?.PassAtt}," +
+                    $"\"fum_lost\":{validStats.StatsMetrics?.FumLost}," +
+                    $"\"rush_att\":{validStats.StatsMetrics?.RushAtt}," +
+                    $"\"pass_rz_att\":{validStats.StatsMetrics?.PassRzAtt}," +
+                    $"\"rush_ypa\":{validStats.StatsMetrics?.RushYpa}," +
+                    $"\"gs\":{validStats.StatsMetrics?.Gs}," +
+                    $"\"tm_off_snp\":{validStats.StatsMetrics?.TeamOffSnp}," +
+                    $"\"pos_rank_ppr\":{validStats.StatsMetrics?.PosRankPpr}," +
+                    $"\"rank_ppr\":{validStats.StatsMetrics?.RankPpr}," +
+                    $"\"pass_sack\":{validStats.StatsMetrics?.PassSack}," +
+                    $"\"penalty_yd\":{validStats.StatsMetrics?.PenaltyYd}," +
+                    $"\"off_snp\":{validStats.StatsMetrics?.OffSnp}," +
+                    $"\"pass_cmp\":{validStats.StatsMetrics?.PassCmp}," +
+                    $"\"cmp_pct\":{validStats.StatsMetrics?.CmpPct}," +
+                    $"\"rush_yac\":{validStats.StatsMetrics?.RushYac}," +
+                    $"\"pts_half_ppr\":{validStats.StatsMetrics?.PtsHalfPpr}," +
+                    $"\"pass_ypa\":{validStats.StatsMetrics?.PassYpa}," +
+                    $"\"pass_cmp_40p\":{validStats.StatsMetrics?.PassCmp40p}," +
+                    $"\"pass_fd\":{validStats.StatsMetrics?.PassFd}," +
+                    $"\"pass_yd\":{validStats.StatsMetrics?.PassYd}," +
+                    $"\"rush_rz_att\":{validStats.StatsMetrics?.RushRzAtt}," +
+                    $"\"rush_rec_yd\":{validStats.StatsMetrics?.RushRecYd}," +
+                    $"\"pass_td\":{validStats.StatsMetrics?.PassTd}," +
+                    $"\"anytime_tds\":{validStats.StatsMetrics?.AnytimeTds}," +
+                    $"\"bonus_fd_qb\":{validStats.StatsMetrics?.BonusFdQb}," +
+                    $"\"rush_yd\":{validStats.StatsMetrics?.RushYd}," +
+                    $"\"fum\":{validStats.StatsMetrics?.Fum}," +
+                    $"\"pass_td_lng\":{validStats.StatsMetrics?.PassTdLng}," +
+                    $"\"pts_ppr\":{validStats.StatsMetrics?.PtsPpr}," +
+                    $"\"pass_inc\":{validStats.StatsMetrics?.PassInc}," +
+                    $"\"rush_tkl_loss\":{validStats.StatsMetrics?.RushTklLoss}" +
                 "}," +
                 $"\"category\":\"{validStats.Category}\"," +
                 $"\"last_modified\":{validStats.LastModified}," +

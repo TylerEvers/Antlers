@@ -7,6 +7,7 @@ namespace Antlers.IntegrationTests.Sleeper
     {
         private const int _validPlayerId = 4881;
         private const int _invalidPlayerId = 0;
+        private const string _invalidSport = "nflx";
 
         [Fact]
         public async Task GetPlayerStats_WithValidPlayerId_ReturnsPlayer()
@@ -40,6 +41,46 @@ namespace Antlers.IntegrationTests.Sleeper
             Assert.NotNull(stats);
             Assert.Null(stats.PlayerId);
             Assert.True(string.IsNullOrEmpty(rawJson));
+        }
+
+        [Fact]
+        public async Task GetTeamStats_WithValidRequest_ReturnsTeamStats()
+        {
+            // Arrange
+            var apiClient = new SleeperApiClient(new SleeperWebBaseUriStrategy());
+
+            // Act
+            var result = await apiClient.GetTeamStats("nfl", 2024, "regular", "pts_std");
+            var teamStats = result.Item1;
+            var rawJson = result.Item2;
+
+            // Assert
+            Assert.NotNull(teamStats);
+            Assert.NotEmpty(teamStats);
+            Assert.False(string.IsNullOrEmpty(rawJson));
+
+            var firstTeamStats = teamStats.First();
+            Assert.Equal("regular", firstTeamStats.SeasonType);
+            Assert.Equal("2024", firstTeamStats.Season);
+            Assert.Equal("TEAM", firstTeamStats.Player?.Position);
+            Assert.NotNull(firstTeamStats.StatsMetrics);
+        }
+
+        [Fact]
+        public async Task GetTeamStats_WithInvalidSport_ReturnsEmptyStats()
+        {
+            // Arrange
+            var apiClient = new SleeperApiClient(new SleeperWebBaseUriStrategy());
+
+            // Act
+            var result = await apiClient.GetTeamStats(_invalidSport, 2024, "regular", "pts_std");
+            var teamStats = result.Item1;
+            var rawJson = result.Item2;
+
+            // Assert
+            Assert.NotNull(teamStats);
+            Assert.Empty(teamStats);
+            Assert.False(rawJson == null);
         }
     }
 }

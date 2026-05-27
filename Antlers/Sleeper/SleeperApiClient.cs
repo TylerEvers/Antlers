@@ -182,8 +182,8 @@ namespace Antlers.Sleeper
         /// <param name="seasonSegment">Season segment, (pre, regular, post)</param>
         /// <param name="year">Year to return</param>
         /// <param name="grouping">Optional parameter, default returns entire season, week returns by week</param>
-        /// <returns>Returns a tuple of StatsResponse object and raw JSON for given player</returns>
-        public async Task<Tuple<StatsResponse, string>> GetPlayerStats(string sport, int playerId, int year, string seasonSegment, int? week = null, string? grouping = null)
+        /// <returns>Returns a tuple of Stats object and raw JSON for given player</returns>
+        public async Task<Tuple<Stats, string>> GetPlayerStats(string sport, int playerId, int year, string seasonSegment, int? week = null, string? grouping = null)
         {
             var request = new RestRequest($"/stats/{sport}/player/{playerId}", Method.Get);
 
@@ -207,11 +207,11 @@ namespace Antlers.Sleeper
 
             if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null")
             {
-                return new Tuple<StatsResponse, string>(new StatsResponse(), string.Empty);
+                return new Tuple<Stats, string>(new Stats(), string.Empty);
             }
 
-            var statsResponse = JsonConvert.DeserializeObject<StatsResponse>(response.Content) ?? new StatsResponse();
-            return new Tuple<StatsResponse, string>(statsResponse, response.Content);
+            var stats = JsonConvert.DeserializeObject<Stats>(response.Content) ?? new Stats();
+            return new Tuple<Stats, string>(stats, response.Content);
         }
 
         /// <summary>
@@ -220,9 +220,8 @@ namespace Antlers.Sleeper
         /// <param name="sport">Currently only supports "nfl"</param>
         /// <param name="seasonSegment">Season segment, (pre, regular, post)</param>
         /// <param name="year">Year to return</param>
-        /// <param name="grouping">Optional parameter, default returns entire season, week returns by week</param>
         /// <param name="ordering">Optional parameter, (pts_ppr, pts_hppr, pts_std)</param>
-        /// <returns>Returns a tuple of list of Stats objects and raw JSON for given player</returns>
+        /// <returns>Returns a tuple of list of Stats objects and raw JSON</returns>
         public async Task<Tuple<IEnumerable<Stats>, string>> GetTeamStats(string sport, int year, string seasonSegment, string? ordering = null)
         {
             var request = new RestRequest($"/stats/{sport}/{year}", Method.Get);
@@ -258,7 +257,7 @@ namespace Antlers.Sleeper
         /// <param name="positions">Positions to return (TEAM, QB, WR, RB, TE, QB, DEF, DE, LB, DB, K)</param>
         /// <param name="ordering">Optional parameter, (pts_ppr, pts_hppr, pts_std)</param>
         /// <returns>Returns a tuple of list of Stats objects and raw JSON for given player</returns>
-        public async Task<Tuple<IEnumerable<Stats>, string>> GetStatsByPosition(string sport, int year, string seasonSegment, string[] positions, string? ordering = null)
+        public async Task<Tuple<IEnumerable<StatsMetrics>, string>> GetStatsByPosition(string sport, int year, string seasonSegment, string[] positions, string? ordering = null)
         {
             var request = new RestRequest($"/stats/{sport}/{year}", Method.Get);
             request.AddQueryParameter("season_type", seasonSegment);
@@ -280,27 +279,36 @@ namespace Antlers.Sleeper
 
             if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null")
             {
-                return new Tuple<IEnumerable<Stats>, string>(new List<Stats>(), string.Empty);
+                return new Tuple<IEnumerable<StatsMetrics>, string>(new List<StatsMetrics>(), string.Empty);
             }
 
-            var stats = JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
-            return new Tuple<IEnumerable<Stats>, string>(stats, response.Content);
+            var stats = JsonConvert.DeserializeObject<IEnumerable<StatsMetrics>>(response.Content) ?? new List<StatsMetrics>();
+            return new Tuple<IEnumerable<StatsMetrics>, string>(stats, response.Content);
         }
 
         /// <summary>
-        /// Function to return projections for a specific player based on sport, player id, year, and season type.
+        /// Function to return projections for all players based on sport, year, season type, and positions.
         /// </summary>
         /// <param name="sport">Currently only supports "nfl"</param>
-        /// <param name="playerId">ID of the player to return</param>
-        /// <param name="seasonSegment">Season segment, (pre, regular, post)</param>
         /// <param name="year">Year to return</param>
-        /// <param name="grouping">Optional parameter, default returns entire season, week returns by week</param>
-        /// <returns>Returns a tuple of list of Stats objects and raw JSON for given player</returns>
-        public async Task<Tuple<IEnumerable<Stats>, string>> GetPlayerProjections(string sport, int playerId, int year, string seasonSegment, string? grouping = null)
+        /// <param name="seasonSegment">Season segment, (pre, regular, post)</param>
+        /// <param name="positions">Positions to return (DB, DL, K, LB, QB, RB, TE, WR)</param>
+        /// <param name="ordering">Optional parameter for ordering results (for example adp_idp)</param>
+        /// <returns>Returns a tuple of list of Projection objects and raw JSON</returns>
+        public async Task<Tuple<IEnumerable<Projection>, string>> GetPlayerProjections(string sport, int year, string seasonSegment, string[] positions, string? ordering = null)
         {
-            var request = new RestRequest($"/projections/{sport}/player/{playerId}", Method.Get);
-            request.AddQueryParameter("season", year.ToString());
+            var request = new RestRequest($"/projections/{sport}/{year}", Method.Get);
             request.AddQueryParameter("season_type", seasonSegment);
+
+            foreach (var position in positions)
+            {
+                request.AddQueryParameter("position[]", position);
+            }
+
+            if (ordering != null)
+            {
+                request.AddQueryParameter("order_by", ordering);
+            }
 
             var response = await _client.ExecuteAsync(request);
 
@@ -311,11 +319,43 @@ namespace Antlers.Sleeper
 
             if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null")
             {
-                return new Tuple<IEnumerable<Stats>, string>(new List<Stats>(), string.Empty);
+                return new Tuple<IEnumerable<Projection>, string>(new List<Projection>(), string.Empty);
             }
 
-            var stats = JsonConvert.DeserializeObject<IEnumerable<Stats>>(response.Content) ?? new List<Stats>();
-            return new Tuple<IEnumerable<Stats>, string>(stats, response.Content);
+            var projections = JsonConvert.DeserializeObject<IEnumerable<Projection>>(response.Content) ?? new List<Projection>();
+            return new Tuple<IEnumerable<Projection>, string>(projections, response.Content);
+        }
+
+        /// <summary>
+        /// Function to return player values for a sport, season segment, year, and scoring type.
+        /// </summary>
+        /// <param name="sport">Currently only supports "nfl"</param>
+        /// <param name="seasonSegment">Season segment, (pre, regular, post)</param>
+        /// <param name="year">Year to return</param>
+        /// <param name="scoring">Scoring format (ppr, half_ppr, std)</param>
+        /// <param name="idp">Whether to include IDP values</param>
+        /// <param name="isDynasty">Whether to use dynasty values</param>
+        /// <returns>Returns a tuple of player values by player id and raw JSON</returns>
+        public async Task<Tuple<Dictionary<string, decimal>, string>> GetPlayerValues(string sport, string seasonSegment, int year, string scoring, bool idp = true, bool isDynasty = true)
+        {
+            var request = new RestRequest($"/players/{sport}/values/{seasonSegment}/{year}/{scoring}", Method.Get);
+            request.AddQueryParameter("idp", idp.ToString().ToLowerInvariant());
+            request.AddQueryParameter("is_dynasty", isDynasty.ToString().ToLowerInvariant());
+
+            var response = await _client.ExecuteAsync(request);
+
+            if (!response.IsSuccessful)
+            {
+                throw new HttpRequestException($"Failed to fetch player values: {response.StatusCode} - {response.Content}");
+            }
+
+            if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null")
+            {
+                return new Tuple<Dictionary<string, decimal>, string>(new Dictionary<string, decimal>(), string.Empty);
+            }
+
+            var playerValues = JsonConvert.DeserializeObject<Dictionary<string, decimal>>(response.Content) ?? new Dictionary<string, decimal>();
+            return new Tuple<Dictionary<string, decimal>, string>(playerValues, response.Content);
         }
 
     }
