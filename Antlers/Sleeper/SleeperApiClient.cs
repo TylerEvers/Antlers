@@ -76,6 +76,18 @@ namespace Antlers.Sleeper
         /// <returns>Returns a tuple of list of Player objects and raw JSON containing all players of the provided sport</returns>
         public async Task<Tuple<IEnumerable<Player>, string>> GetPlayers(string sport)
         {
+            var response = await GetPlayersDictionary(sport);
+            return new Tuple<IEnumerable<Player>, string>(response.Item1.Values, response.Item2);
+        }
+
+        /// <summary>
+        /// Function to return all players from Sleeper keyed by player id.
+        /// Link: https://docs.sleeper.com/#players
+        /// </summary>
+        /// <param name="sport">Currently only supports "nfl".</param>
+        /// <returns>Returns a tuple of dictionary keyed by player id and raw JSON containing all players of the provided sport</returns>
+        public async Task<Tuple<Dictionary<string, Player>, string>> GetPlayersDictionary(string sport)
+        {
             var request = new RestRequest($"/players/{sport}", Method.Get);
             var response = await _client.ExecuteAsync(request);
 
@@ -86,11 +98,32 @@ namespace Antlers.Sleeper
 
             if (string.IsNullOrEmpty(response.Content) || response.Content.Trim().ToLower() == "null")
             {
-                return new Tuple<IEnumerable<Player>, string>(new List<Player>(), string.Empty);
+                return new Tuple<Dictionary<string, Player>, string>(new Dictionary<string, Player>(), string.Empty);
             }
 
-            var players = JsonConvert.DeserializeObject<IEnumerable<Player>>(response.Content) ?? new List<Player>();
-            return new Tuple<IEnumerable<Player>, string>(players, response.Content);
+            var settings = new JsonSerializerSettings
+            {
+                // Sleeper payload can include nulls for value-type fields (for example depth_chart_order).
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            settings.Error += (_, args) =>
+            {
+                // Some Sleeper player fields occasionally return null for numeric/bool values.
+                // Keep model defaults instead of failing the entire sync.
+                var errorMessage = args.ErrorContext.Error.Message;
+                if (errorMessage.Contains("Error converting value {null} to type 'System.Int", StringComparison.Ordinal)
+                    || errorMessage.Contains("Error converting value {null} to type 'System.Boolean", StringComparison.Ordinal)
+                    || errorMessage.Contains("Could not convert string to boolean", StringComparison.Ordinal)
+                    || errorMessage.Contains("Could not convert string to integer", StringComparison.Ordinal)
+                    || errorMessage.Contains("Could not convert string to DateTime", StringComparison.Ordinal))
+                {
+                    args.ErrorContext.Handled = true;
+                }
+            };
+
+            var players = JsonConvert.DeserializeObject<Dictionary<string, Player>>(response.Content, settings) ?? new Dictionary<string, Player>();
+            return new Tuple<Dictionary<string, Player>, string>(players, response.Content);
         }
 
         /// <summary>
