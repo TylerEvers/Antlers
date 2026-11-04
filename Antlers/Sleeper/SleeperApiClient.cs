@@ -181,6 +181,15 @@ namespace Antlers.Sleeper
             return new Tuple<IEnumerable<Roster>, string>(rosters, response.Content);
         }
 
+        public Task<IEnumerable<LeagueUser>> GetLeagueUsers(long leagueId) =>
+            GetJsonAsync<IEnumerable<LeagueUser>>($"/league/{leagueId}/users", "league users");
+
+        public Task<IEnumerable<Matchup>> GetMatchups(long leagueId, int week) =>
+            GetJsonAsync<IEnumerable<Matchup>>($"/league/{leagueId}/matchups/{week}", "league matchups");
+
+        public Task<NflState> GetNflState() =>
+            GetJsonAsync<NflState>("/state/nfl", "NFL state");
+
         /// <summary>
         /// Function to return schedule for a specific sport, segment  and year.
         /// </summary>
@@ -245,6 +254,30 @@ namespace Antlers.Sleeper
 
             var stats = JsonConvert.DeserializeObject<Stats>(response.Content) ?? new Stats();
             return new Tuple<Stats, string>(stats, response.Content);
+        }
+
+        public Task<Dictionary<string, StatsMetrics>> GetWeeklyPlayerStats(string sport, string seasonSegment, int year, int week) =>
+            GetJsonAsync<Dictionary<string, StatsMetrics>>($"/stats/{sport}/{seasonSegment}/{year}/{week}", "weekly player stats");
+
+        private async Task<T> GetJsonAsync<T>(string path, string resourceName) where T : class
+        {
+            var response = await _client.ExecuteAsync(new RestRequest(path, Method.Get));
+
+            if (!response.IsSuccessful)
+            {
+                throw new HttpRequestException(
+                    $"Failed to fetch {resourceName}: {response.StatusCode} - {response.Content}",
+                    null,
+                    response.StatusCode);
+            }
+
+            if (string.IsNullOrWhiteSpace(response.Content) || response.Content.Trim() == "null")
+            {
+                throw new InvalidDataException($"Sleeper returned no {resourceName} data.");
+            }
+
+            return JsonConvert.DeserializeObject<T>(response.Content)
+                ?? throw new InvalidDataException($"Sleeper returned invalid {resourceName} data.");
         }
 
         /// <summary>

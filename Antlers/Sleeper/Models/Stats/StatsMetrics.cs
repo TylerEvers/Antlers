@@ -201,5 +201,32 @@ namespace Antlers.Sleeper.Models
 
         [JsonProperty("rush_tkl_loss")]
         public float RushTklLoss { get; set; }
+
+        [JsonProperty("rec_tgt")]
+        public float Targets { get; set; }
+
+        [JsonProperty("rec")]
+        public float Receptions { get; set; }
+
+        [JsonProperty("rec_yd")]
+        public float ReceivingYards { get; set; }
+
+        [JsonProperty("rec_td")]
+        public float ReceivingTouchdowns { get; set; }
+
+        [JsonProperty("rec_air_yd")]
+        public float ReceivingAirYards { get; set; }
+
+        [JsonProperty("rec_yac")]
+        public float ReceivingYardsAfterCatch { get; set; }
+
+        [JsonProperty("rec_lng")]
+        public float LongestReception { get; set; }
+
+        [JsonProperty("rec_fd")]
+        public float ReceivingFirstDowns { get; set; }
+
+        [JsonProperty("rush_fum")]
+        public float RushingFumbles { get; set; }
     }
 }

@@ -19,6 +19,9 @@ namespace Antlers.UnitTests.Sleeper
                                     $"\"first_name\":\"{validPlayer.FirstName}\"," +
                                     $"\"last_name\":\"{validPlayer.LastName}\"," +
                                     $"\"number\":{validPlayer.Number}," +
+                                    $"\"draft_year\":{JsonConvert.SerializeObject(validPlayer.DraftYear)}," +
+                                    $"\"draft_round\":{JsonConvert.SerializeObject(validPlayer.DraftRound)}," +
+                                    $"\"draft_pick\":{JsonConvert.SerializeObject(validPlayer.DraftPick)}," +
                                     $"\"position\":\"{validPlayer.Position}\"," +
                                     $"\"fantasy_positions\":[{string.Join(",", validPlayer.FantasyPositions.Select(fp => $"\"{fp}\""))}]," +
                                     $"\"status\":\"{validPlayer.Status}\"," +

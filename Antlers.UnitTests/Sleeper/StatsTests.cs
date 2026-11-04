@@ -82,7 +82,16 @@ namespace Antlers.UnitTests.Sleeper
                     $"\"pass_td_lng\":{validStats.StatsMetrics?.PassTdLng}," +
                     $"\"pts_ppr\":{validStats.StatsMetrics?.PtsPpr}," +
                     $"\"pass_inc\":{validStats.StatsMetrics?.PassInc}," +
-                    $"\"rush_tkl_loss\":{validStats.StatsMetrics?.RushTklLoss}" +
+                    $"\"rush_tkl_loss\":{validStats.StatsMetrics?.RushTklLoss}," +
+                    $"\"rec_tgt\":{JsonConvert.SerializeObject(validStats.StatsMetrics?.Targets)}," +
+                    $"\"rec\":{JsonConvert.SerializeObject(validStats.StatsMetrics?.Receptions)}," +
+                    $"\"rec_yd\":{JsonConvert.SerializeObject(validStats.StatsMetrics?.ReceivingYards)}," +
+                    $"\"rec_td\":{JsonConvert.SerializeObject(validStats.StatsMetrics?.ReceivingTouchdowns)}," +
+                    $"\"rec_air_yd\":{JsonConvert.SerializeObject(validStats.StatsMetrics?.ReceivingAirYards)}," +
+                    $"\"rec_yac\":{JsonConvert.SerializeObject(validStats.StatsMetrics?.ReceivingYardsAfterCatch)}," +
+                    $"\"rec_lng\":{JsonConvert.SerializeObject(validStats.StatsMetrics?.LongestReception)}," +
+                    $"\"rec_fd\":{JsonConvert.SerializeObject(validStats.StatsMetrics?.ReceivingFirstDowns)}," +
+                    $"\"rush_fum\":{JsonConvert.SerializeObject(validStats.StatsMetrics?.RushingFumbles)}" +
                 "}," +
                 $"\"category\":\"{validStats.Category}\"," +
                 $"\"last_modified\":{validStats.LastModified}," +
@@ -101,6 +110,9 @@ namespace Antlers.UnitTests.Sleeper
                     $"\"first_name\":\"{validStats.Player?.FirstName}\"," +
                     $"\"last_name\":\"{validStats.Player?.LastName}\"," +
                     $"\"number\":{validStats.Player?.Number}," +
+                    $"\"draft_year\":{JsonConvert.SerializeObject(validStats.Player?.DraftYear)}," +
+                    $"\"draft_round\":{JsonConvert.SerializeObject(validStats.Player?.DraftRound)}," +
+                    $"\"draft_pick\":{JsonConvert.SerializeObject(validStats.Player?.DraftPick)}," +
                     $"\"position\":\"{validStats.Player?.Position}\"," +
                     $"\"fantasy_positions\":[{string.Join(",", validStats.Player?.FantasyPositions.Select(fp => $"\"{fp}\""))}]," +
                     $"\"status\":\"{validStats.Player?.Status}\"," +

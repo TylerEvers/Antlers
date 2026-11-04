@@ -12,6 +12,12 @@ namespace Antlers.Sleeper.Models
         public string? LastName { get; set; }
         [JsonProperty("number")]
         public int Number { get; set; }
+        [JsonProperty("draft_year")]
+        public int? DraftYear { get; set; }
+        [JsonProperty("draft_round")]
+        public int? DraftRound { get; set; }
+        [JsonProperty("draft_pick")]
+        public int? DraftPick { get; set; }
         [JsonProperty("position")]
         public string? Position { get; set; }
         [JsonProperty("fantasy_positions")]
