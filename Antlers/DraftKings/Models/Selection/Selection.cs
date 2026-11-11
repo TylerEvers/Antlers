@@ -16,12 +16,22 @@ namespace Antlers.DraftKings.Models
         public int? TrueOdds { get; set; }
         [JsonProperty("outcomeType")]
         public string? OutcomeType { get; set; }
+        [JsonProperty("line")]
+        public string? Line { get; set; }
+        [JsonProperty("points")]
+        public string? Points { get; set; }
+        [JsonProperty("milestoneValue")]
+        public decimal? MilestoneValue { get; set; }
         [JsonProperty("participants")]
         public Participant[]? Participants { get; set; }
         [JsonProperty("sortOrder")]
         public int? SortOrder { get; set; }
         [JsonProperty("metadata")]
         public SelectionMetadata? Metadata { get; set; }
+        [JsonProperty("isSuspended")]
+        public bool? IsSuspended { get; set; }
+        [JsonProperty("status")]
+        public string? Status { get; set; }
     }
     public class DisplayOdd
     {
@@ -35,5 +45,9 @@ namespace Antlers.DraftKings.Models
 
     public class SelectionMetadata
     {
+        [JsonProperty("line")]
+        public string? Line { get; set; }
+        [JsonProperty("points")]
+        public string? Points { get; set; }
     }
 }

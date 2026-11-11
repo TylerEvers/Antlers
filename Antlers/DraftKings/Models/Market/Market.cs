@@ -28,6 +28,11 @@ namespace Antlers.DraftKings.Models
         public string? BlurbId { get; set; }
         [JsonProperty("dynamicMetadata")]
         public DynamicMetadata? DynamicMetadata { get; set; }
+        [JsonProperty("clientMetadata")]
+        public MarketClientMetadata? ClientMetadata { get; set; }
+        [JsonProperty("selections")]
+        [JsonConverter(typeof(EntityCollectionConverter<Selection>))]
+        public Selection[]? Selections { get; set; }
     }
 
     public class MarketType
@@ -42,5 +47,11 @@ namespace Antlers.DraftKings.Models
 
     public class DynamicMetadata
     {
+    }
+
+    public class MarketClientMetadata
+    {
+        [JsonProperty("subCategoryId")]
+        public int? SubCategoryId { get; set; }
     }
 }
